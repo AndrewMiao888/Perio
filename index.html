@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Periodic Table Memory Engine</title>
+
+<style>
+/* =========================================================
+   GLOBAL STYLES
+========================================================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    color:white;
+    overflow-x:hidden;
+}
+
+.hidden{
+    display:none;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    transition:0.3s;
+}
+
+/* =========================================================
+   LANDING PAGE
+========================================================= */
+#landingPage{
+    min-height:100vh;
+    background:linear-gradient(135deg,#0f172a,#1e293b,#111827);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+}
+
+#landingPage h1{
+    font-size:60px;
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+#landingPage p{
+    max-width:700px;
+    line-height:1.7;
+    font-size:20px;
+    color:#cbd5e1;
+}
+
+.startBtn{
+    margin-top:30px;
+    padding:15px 40px;
+    background:#38bdf8;
+    color:black;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.startBtn:hover{
+    background:#0ea5e9;
+    transform:scale(1.05);
+}
+
+.previewBox{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    width:90%;
+}
+
+.previewCard{
+    background:#1e293b;
+    border:2px solid #334155;
+    border-radius:15px;
+    padding:20px;
+}
+
+.previewCard h3{
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+/* =========================================================
+   GAME PAGE
+========================================================= */
+#gamePage{
+    min-height:100vh;
+}
+
+header{
+    background:#111827;
+    padding:20px;
+    border-bottom:3px solid #38bdf8;
+    text-align:center;
+}
+
+header h1{
+    color:#38bdf8;
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.statBox{
+    background:#1e293b;
+    padding:10px 20px;
+    border-radius:10px;
+}
+
+#mainContent{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    padding:20px;
+}
+
+@media(max-width:900px){
+    #mainContent{
+        grid-template-columns:1fr;
+    }
+}
+
+.panel{
+    background:#111827;
+    border-radius:15px;
+    padding:20px;
+}
+
+/* =========================================================
+   ELEMENT GRID
+========================================================= */
+#elementGrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+    gap:10px;
+    margin-top:20px;
+}
+
+.elementCard{
+    background:#1e293b;
+    border:2px solid #334155;
+    border-radius:10px;
+    padding:10px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.elementCard:hover{
+    transform:translateY(-5px);
+    border-color:#38bdf8;
+}
+
+.atomic{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.symbol{
+    font-size:28px;
+    font-weight:bold;
+    margin:8px 0;
+}
+
+.type{
+    font-size:11px;
+    color:#cbd5e1;
+}
+
+/* =========================================================
+   INFO BOX
+========================================================= */
+#elementInfo{
+    line-height:1.8;
+    margin-top:20px;
+}
+
+.highlight{
+    color:#38bdf8;
+}
+
+/* =========================================================
+   QUIZ AREA
+========================================================= */
+#quizQuestion{
+    margin-top:20px;
+    font-size:22px;
+    line-height:1.5;
+}
+
+#answerInput{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+}
+
+.quizButtons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.quizButtons button{
+    padding:12px 18px;
+    font-weight:bold;
+}
+
+.submitBtn{
+    background:#22c55e;
+    color:white;
+}
+
+.submitBtn:hover{
+    background:#16a34a;
+}
+
+.hintBtn{
+    background:#f59e0b;
+    color:black;
+}
+
+.hintBtn:hover{
+    background:#d97706;
+}
+
+.nextBtn{
+    background:#38bdf8;
+    color:black;
+}
+
+.nextBtn:hover{
+    background:#0ea5e9;
+}
+
+/* =========================================================
+   CORRECT / INCORRECT
+========================================================= */
+#feedback{
+    margin-top:25px;
+    padding:20px;
+    border-radius:10px;
+    display:none;
+    animation:fadeIn 0.5s;
+}
+
+.correctBox{
+    background:#052e16;
+    border:2px solid #22c55e;
+}
+
+.wrongBox{
+    background:#450a0a;
+    border:2px solid #ef4444;
+}
+
+.feedbackTitle{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.correctText{
+    color:#22c55e;
+}
+
+.wrongText{
+    color:#ef4444;
+}
+
+.explanation{
+    margin-top:15px;
+    line-height:1.8;
+    color:#e2e8f0;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+footer{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+}
+
+/* =========================================================
+   BADGES
+========================================================= */
+.badges{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.badge{
+    background:#334155;
+    padding:10px;
+    border-radius:8px;
+}
+
+/* =========================================================
+   THEME BUTTON
+========================================================= */
+.themeToggle{
+    position:fixed;
+    top:15px;
+    right:15px;
+    background:#38bdf8;
+    color:black;
+    padding:12px;
+    z-index:999;
+}
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+.progressContainer{
+    width:100%;
+    height:20px;
+    background:#1e293b;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.progressBar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(to right,#22c55e,#38bdf8);
+    transition:0.4s;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ======================================================
+     THEME BUTTON
+====================================================== -->
+<button class="themeToggle" onclick="toggleTheme()">
+Toggle Theme
+</button>
+
+<!-- ======================================================
+     PAGE 1 - LANDING / PREVIEW PAGE
+====================================================== -->
+<section id="landingPage">
+
+<h1>Periodic Table Memory Engine</h1>
+
+<p>
+Train your brain with an interactive chemistry learning game.
+Memorize atomic numbers, symbols, names, element categories,
+and scientific facts using quizzes, explanations, hints,
+achievements, and smart learning feedback.
+</p>
+
+<div class="previewBox">
+
+<div class="previewCard">
+<h3>Learn Elements</h3>
+<p>
+Explore atomic numbers, symbols, names,
+and categories with interactive cards.
+</p>
+</div>
+
+<div class="previewCard">
+<h3>Quiz Challenges</h3>
+<p>
+Answer random chemistry questions
+to improve memory and speed.
+</p>
+</div>
+
+<div class="previewCard">
+<h3>Instant Explanations</h3>
+<p>
+Every answer explains WHY it is correct
+or incorrect for stronger learning.
+</p>
+</div>
+
+<div class="previewCard">
+<h3>Achievement System</h3>
+<p>
+Unlock chemistry badges as your
+score increases.
+</p>
+</div>
+
+</div>
+
+<button class="startBtn" onclick="startGame()">
+Start Learning
+</button>
+
+</section>
+
+<!-- ======================================================
+     PAGE 2 - GAME PAGE
+====================================================== -->
+<section id="gamePage" class="hidden">
+
+<header>
+<h1>Periodic Table Memory Engine</h1>
+
+<div class="stats">
+
+<div class="statBox">
+Score:
+<span id="score">0</span>
+</div>
+
+<div class="statBox">
+Questions:
+<span id="questions">0</span>
+</div>
+
+<div class="statBox">
+Accuracy:
+<span id="accuracy">0%</span>
+</div>
+
+</div>
+
+<div class="progressContainer">
+<div class="progressBar" id="progressBar"></div>
+</div>
+
+</header>
+
+<div id="mainContent">
+
+<!-- LEFT PANEL -->
+<div class="panel">
+
+<h2>Periodic Elements</h2>
+
+<div id="elementGrid"></div>
+
+<div id="elementInfo">
+Click an element to learn details.
+</div>
+
+<div class="badges" id="badges"></div>
+
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="panel">
+
+<h2>Quiz Arena</h2>
+
+<div id="quizQuestion">
+Press Next Question to begin!
+</div>
+
+<input
+type="text"
+id="answerInput"
+placeholder="Type your answer here..."
+>
+
+<div class="quizButtons">
+
+<button class="submitBtn" onclick="submitAnswer()">
+Submit
+</button>
+
+<button class="hintBtn" onclick="showHint()">
+Hint
+</button>
+
+<button class="nextBtn" onclick="generateQuestion()">
+Next Question
+</button>
+
+</div>
+
+<!-- FEEDBACK -->
+<div id="feedback">
+
+<div id="feedbackTitle" class="feedbackTitle">
+Correct!
+</div>
+
+<div class="explanation" id="explanation">
+Explanation appears here.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+Built with HTML, CSS, and JavaScript | Educational Chemistry Engine
+</footer>
+
+</section>
+
+<script>
+/* =========================================================
+   ELEMENT DATA
+========================================================= */
+
+const elements = [
+
+{
+num:1,
+symbol:"H",
+name:"Hydrogen",
+type:"Nonmetal",
+fact:"Hydrogen is the lightest element and the most abundant element in the universe."
+},
+
+{
+num:2,
+symbol:"He",
+name:"Helium",
+type:"Noble Gas",
+fact:"Helium is used in balloons because it is lighter than air and non-flammable."
+},
+
+{
+num:3,
+symbol:"Li",
+name:"Lithium",
+type:"Alkali Metal",
+fact:"Lithium is used in rechargeable batteries."
+},
+
+{
+num:4,
+symbol:"Be",
+name:"Beryllium",
+type:"Alkaline Earth Metal",
+fact:"Beryllium is lightweight and used in aerospace materials."
+},
+
+{
+num:5,
+symbol:"B",
+name:"Boron",
+type:"Metalloid",
+fact:"Boron is used in glass and detergents."
+},
+
+{
+num:6,
+symbol:"C",
+name:"Carbon",
+type:"Nonmetal",
+fact:"Carbon forms the basis of all known life."
+},
+
+{
+num:7,
+symbol:"N",
+name:"Nitrogen",
+type:"Nonmetal",
+fact:"Nitrogen makes up about 78% of Earth's atmosphere."
+},
+
+{
+num:8,
+symbol:"O",
+name:"Oxygen",
+type:"Nonmetal",
+fact:"Oxygen is essential for respiration."
+},
+
+{
+num:9,
+symbol:"F",
+name:"Fluorine",
+type:"Halogen",
+fact:"Fluorine is the most reactive element."
+},
+
+{
+num:10,
+symbol:"Ne",
+name:"Neon",
+type:"Noble Gas",
+fact:"Neon glows brightly in advertising signs."
+},
+
+{
+num:11,
+symbol:"Na",
+name:"Sodium",
+type:"Alkali Metal",
+fact:"Sodium reacts violently with water."
+},
+
+{
+num:12,
+symbol:"Mg",
+name:"Magnesium",
+type:"Alkaline Earth Metal",
+fact:"Magnesium burns with a bright white flame."
+}
+
+];
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let currentQuestion = {};
+let score = 0;
+let totalQuestions = 0;
+let correctAnswers = 0;
+
+/* =========================================================
+   START GAME
+========================================================= */
+
+function startGame(){
+
+document.getElementById("landingPage")
+.classList.add("hidden");
+
+document.getElementById("gamePage")
+.classList.remove("hidden");
+
+renderElements();
+
+}
+
+/* =========================================================
+   RENDER ELEMENTS
+========================================================= */
+
+function renderElements(){
+
+const grid = document.getElementById("elementGrid");
+
+grid.innerHTML = "";
+
+elements.forEach(el => {
+
+const card = document.createElement("div");
+
+card.className = "elementCard";
+
+card.innerHTML = `
+<div class="atomic">${el.num}</div>
+<div class="symbol">${el.symbol}</div>
+<div>${el.name}</div>
+<div class="type">${el.type}</div>
+`;
+
+card.onclick = () => showElement(el);
+
+grid.appendChild(card);
+
+});
+
+}
+
+/* =========================================================
+   SHOW ELEMENT DETAILS
+========================================================= */
+
+function showElement(el){
+
+document.getElementById("elementInfo").innerHTML = `
+<h3 class="highlight">${el.name}</h3>
+
+<p><strong>Atomic Number:</strong> ${el.num}</p>
+
+<p><strong>Symbol:</strong> ${el.symbol}</p>
+
+<p><strong>Category:</strong> ${el.type}</p>
+
+<p><strong>Scientific Fact:</strong> ${el.fact}</p>
+`;
+
+}
+
+/* =========================================================
+   GENERATE QUIZ
+========================================================= */
+
+function generateQuestion(){
+
+const random =
+elements[Math.floor(Math.random() * elements.length)];
+
+const modes = [
+"number",
+"symbol",
+"type"
+];
+
+const mode =
+modes[Math.floor(Math.random() * modes.length)];
+
+currentQuestion.element = random;
+currentQuestion.mode = mode;
+
+document.getElementById("feedback").style.display = "none";
+
+document.getElementById("answerInput").value = "";
+
+if(mode === "number"){
+
+document.getElementById("quizQuestion").innerHTML =
+`What is the atomic number of <strong>${random.name}</strong>?`;
+
+}
+
+if(mode === "symbol"){
+
+document.getElementById("quizQuestion").innerHTML =
+`What is the symbol of <strong>${random.name}</strong>?`;
+
+}
+
+if(mode === "type"){
+
+document.getElementById("quizQuestion").innerHTML =
+`What type of element is <strong>${random.name}</strong>?`;
+
+}
+
+}
+
+/* =========================================================
+   SUBMIT ANSWER
+========================================================= */
+
+function submitAnswer(){
+
+const user =
+document.getElementById("answerInput")
+.value
+.trim()
+.toLowerCase();
+
+const el = currentQuestion.element;
+
+if(!el){
+
+alert("Generate a question first.");
+
+return;
+
+}
+
+let correct = "";
+let explanation = "";
+
+if(currentQuestion.mode === "number"){
+
+correct = String(el.num).toLowerCase();
+
+explanation =
+`${el.name} has atomic number ${el.num}
+because it contains ${el.num} protons
+inside its nucleus.`;
+
+}
+
+if(currentQuestion.mode === "symbol"){
+
+correct = el.symbol.toLowerCase();
+
+explanation =
+`The symbol for ${el.name}
+is ${el.symbol}. Chemical symbols are
+used internationally in chemistry.`;
+
+}
+
+if(currentQuestion.mode === "type"){
+
+correct = el.type.toLowerCase();
+
+explanation =
+`${el.name} belongs to the category:
+${el.type}. Elements are grouped by
+their chemical properties and behaviors.`;
+
+}
+
+totalQuestions++;
+
+if(user === correct){
+
+score += 10;
+correctAnswers++;
+
+showCorrect(explanation);
+
+playCorrectSound();
+
+}else{
+
+showWrong(correct, explanation);
+
+playWrongSound();
+
+}
+
+updateStats();
+
+unlockBadges();
+
+}
+
+/* =========================================================
+   SHOW CORRECT
+========================================================= */
+
+function showCorrect(explanation){
+
+const feedback =
+document.getElementById("feedback");
+
+feedback.style.display = "block";
+
+feedback.className = "correctBox";
+
+document.getElementById("feedbackTitle").innerHTML =
+`✅ Correct!`;
+
+document.getElementById("feedbackTitle")
+.className = "feedbackTitle correctText";
+
+document.getElementById("explanation").innerHTML =
+`
+<strong>Why?</strong><br><br>
+${explanation}
+`;
+
+}
+
+/* =========================================================
+   SHOW WRONG
+========================================================= */
+
+function showWrong(answer, explanation){
+
+const feedback =
+document.getElementById("feedback");
+
+feedback.style.display = "block";
+
+feedback.className = "wrongBox";
+
+document.getElementById("feedbackTitle").innerHTML =
+`❌ Incorrect`;
+
+document.getElementById("feedbackTitle")
+.className = "feedbackTitle wrongText";
+
+document.getElementById("explanation").innerHTML =
+`
+<strong>Correct Answer:</strong> ${answer}<br><br>
+
+<strong>Why?</strong><br><br>
+
+${explanation}
+`;
+
+}
+
+/* =========================================================
+   UPDATE STATS
+========================================================= */
+
+function updateStats(){
+
+document.getElementById("score").innerText =
+score;
+
+document.getElementById("questions").innerText =
+totalQuestions;
+
+let accuracy = 0;
+
+if(totalQuestions > 0){
+
+accuracy =
+Math.round(
+(correctAnswers / totalQuestions) * 100
+);
+
+}
+
+document.getElementById("accuracy").innerText =
+accuracy + "%";
+
+const progress =
+Math.min(score,100);
+
+document.getElementById("progressBar")
+.style.width = progress + "%";
+
+}
+
+/* =========================================================
+   HINT SYSTEM
+========================================================= */
+
+function showHint(){
+
+const el = currentQuestion.element;
+
+if(!el){
+
+alert("Generate a question first.");
+
+return;
+
+}
+
+if(currentQuestion.mode === "number"){
+
+alert(
+`Hint:
+The atomic number is between
+${el.num - 2} and ${el.num + 2}`
+);
+
+}
+
+if(currentQuestion.mode === "symbol"){
+
+alert(
+`Hint:
+The symbol starts with:
+${el.symbol[0]}`
+);
+
+}
+
+if(currentQuestion.mode === "type"){
+
+alert(
+`Hint:
+It belongs to a chemistry family
+starting with:
+${el.type[0]}`
+);
+
+}
+
+}
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+function unlockBadges(){
+
+const badgeContainer =
+document.getElementById("badges");
+
+badgeContainer.innerHTML = "";
+
+if(score >= 20){
+
+addBadge("🥉 Beginner Chemist");
+
+}
+
+if(score >= 50){
+
+addBadge("🥈 Element Explorer");
+
+}
+
+if(score >= 100){
+
+addBadge("🥇 Atomic Master");
+
+}
+
+if(score >= 150){
+
+addBadge("🏆 Periodic Legend");
+
+}
+
+}
+
+/* =========================================================
+   ADD BADGE
+========================================================= */
+
+function addBadge(text){
+
+const badge =
+document.createElement("div");
+
+badge.className = "badge";
+
+badge.innerText = text;
+
+document.getElementById("badges")
+.appendChild(badge);
+
+}
+
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+
+let darkMode = true;
+
+function toggleTheme(){
+
+darkMode = !darkMode;
+
+if(darkMode){
+
+document.body.style.background =
+"#0f172a";
+
+document.body.style.color =
+"white";
+
+}else{
+
+document.body.style.background =
+"#f8fafc";
+
+document.body.style.color =
+"black";
+
+}
+
+}
+
+/* =========================================================
+   SOUNDS
+========================================================= */
+
+function playCorrectSound(){
+
+const ctx =
+new(window.AudioContext ||
+window.webkitAudioContext)();
+
+const osc =
+ctx.createOscillator();
+
+osc.type = "triangle";
+
+osc.frequency.value = 700;
+
+osc.connect(ctx.destination);
+
+osc.start();
+
+osc.stop(ctx.currentTime + 0.15);
+
+}
+
+function playWrongSound(){
+
+const ctx =
+new(window.AudioContext ||
+window.webkitAudioContext)();
+
+const osc =
+ctx.createOscillator();
+
+osc.type = "sawtooth";
+
+osc.frequency.value = 180;
+
+osc.connect(ctx.destination);
+
+osc.start();
+
+osc.stop(ctx.currentTime + 0.2);
+
+}
+
+/* =========================================================
+   ENTER KEY SUPPORT
+========================================================= */
+
+document.addEventListener("keydown", function(e){
+
+if(e.key === "Enter"){
+
+submitAnswer();
+
+}
+
+});
+
+/* =========================================================
+   AUTO FIRST QUESTION
+========================================================= */
+
+setTimeout(() => {
+
+generateQuestion();
+
+}, 1000);
+
+</script>
+
+</body>
+</html>
