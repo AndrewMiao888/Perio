@@ -721,8 +721,8 @@ const card = document.createElement("div");
 card.className = "elementCard";
 
 card.innerHTML = `
-<div class="atomic">${el.num}</div>
-<div class="symbol">${el.symbol}</div>
+<div class="atomic">${el.n}</div>
+<div class="symbol">${el.s}</div>
 <div>${el.name}</div>
 <div class="type">${el.type}</div>
 `;
@@ -744,16 +744,15 @@ function showElement(el){
 document.getElementById("elementInfo").innerHTML = `
 <h3 class="highlight">${el.name}</h3>
 
-<p><strong>Atomic Number:</strong> ${el.num}</p>
+<p><strong>Atomic Number:</strong> ${el.n}</p>
 
-<p><strong>Symbol:</strong> ${el.symbol}</p>
+<p><strong>Symbol:</strong> ${el.s}</p>
 
 <p><strong>Category:</strong> ${el.type}</p>
 
-<p><strong>Scientific Fact:</strong> ${el.fact}</p>
 `;
-
 }
+
 
 /* =========================================================
    GENERATE QUIZ
