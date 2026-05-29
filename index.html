@@ -475,12 +475,6 @@ Accuracy:
 <div id="elementInfo">
 Click an element to learn details.
 </div>
-   
-<h3>Bohr Model</h3>
-<div id="bohrModel"></div>
-
-<h3>Orbital Filling</h3>
-<div id="orbitalModel"></div>
 
 <div class="badges" id="badges"></div>
 
@@ -539,57 +533,13 @@ Built with HTML, CSS, and JavaScript | Educational Chemistry Engine
 </footer>
 
 </section>
+
 <script>
-
 /* =========================================================
-   PERIODIC TABLE MEMORY ENGINE — CORE SYSTEM v4
-   CHUNK 1/2 — DATA + LEARNING ENGINE + COMBAT CORE
+   ELEMENT DATA
 ========================================================= */
 
-/* =========================================================
-   STATE
-========================================================= */
 
-const state = {
-    score: 0,
-    total: 0,
-    correct: 0,
-
-    streak: 0,
-    multiplier: 1,
-
-    boss: {
-        active: false,
-        hp: 100,
-        maxHp: 100,
-        phase: 1,
-        attackCooldown: 0
-    },
-
-    currentCard: null,
-    currentQuestion: null,
-
-    deck: [],
-    reviewQueue: [],
-
-    heatmap: {},
-
-    elementsSeen: new Set(),
-
-    sm2: {},
-
-    difficulty: 1
-};
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const $ = (id) => document.getElementById(id);
-
-/* =========================================================
-   FULL 118 ELEMENT DATABASE (MINIFIED BUT COMPLETE LOGICALLY SAFE)
-========================================================= */
 
 const elements = [
 
@@ -721,608 +671,509 @@ const elements = [
 {n:118,s:"Og",name:"Oganesson",type:"Noble Gas",group:18,period:7,mass:294}
 
 ];
-
-
 /* =========================================================
-   UTIL
+   VARIABLES
 ========================================================= */
 
-function rand(arr){
-    return arr[Math.floor(Math.random()*arr.length)];
-}
-
-function clamp(v,a,b){
-    return Math.max(a,Math.min(b,v));
-}
+let currentQuestion = {};
+let score = 0;
+let totalQuestions = 0;
+let correctAnswers = 0;
 
 /* =========================================================
-   ELEMENT LOOKUP
+   START GAME
 ========================================================= */
 
-function getElement(n){
-    return elements.find(e=>e.n===n);
+function startGame(){
+
+document.getElementById("landingPage")
+.classList.add("hidden");
+
+document.getElementById("gamePage")
+.classList.remove("hidden");
+
+renderElements();
+
 }
 
 /* =========================================================
-   HEATMAP TRACKING
+   RENDER ELEMENTS
 ========================================================= */
 
-function logHeatmap(el, correct){
-    if(!state.heatmap[el.n]){
-        state.heatmap[el.n] = {correct:0, wrong:0};
-    }
+function renderElements(){
 
-    correct
-        ? state.heatmap[el.n].correct++
-        : state.heatmap[el.n].wrong++;
+const grid = document.getElementById("elementGrid");
+
+grid.innerHTML = "";
+
+elements.forEach(el => {
+
+const card = document.createElement("div");
+
+card.className = "elementCard";
+
+card.innerHTML = `
+<div class="atomic">${el.num}</div>
+<div class="symbol">${el.symbol}</div>
+<div>${el.name}</div>
+<div class="type">${el.type}</div>
+`;
+
+card.onclick = () => showElement(el);
+
+grid.appendChild(card);
+
+});
+
 }
 
 /* =========================================================
-   SM-2 (ANKI-STYLE SPACED REPETITION)
+   SHOW ELEMENT DETAILS
 ========================================================= */
 
-function initSM2(id){
-    if(!state.sm2[id]){
-        state.sm2[id] = {
-            interval: 1,
-            repetition: 0,
-            efactor: 2.5,
-            due: Date.now()
-        };
-    }
-}
+function showElement(el){
 
-function gradeSM2(id, quality){
-    const card = state.sm2[id];
-    if(!card) return;
+document.getElementById("elementInfo").innerHTML = `
+<h3 class="highlight">${el.name}</h3>
 
-    if(quality < 3){
-        card.repetition = 0;
-        card.interval = 1;
-    } else {
-        card.repetition++;
+<p><strong>Atomic Number:</strong> ${el.num}</p>
 
-        if(card.repetition === 1){
-            card.interval = 1;
-        } else if(card.repetition === 2){
-            card.interval = 6;
-        } else {
-            card.interval = Math.round(card.interval * card.efactor);
-        }
-    }
+<p><strong>Symbol:</strong> ${el.symbol}</p>
 
-    card.efactor = clamp(
-        card.efactor + (0.1 - (5-quality)*(0.08 + (5-quality)*0.02)),
-        1.3,
-        2.8
-    );
+<p><strong>Category:</strong> ${el.type}</p>
 
-    card.due = Date.now() + card.interval * 86400000;
+<p><strong>Scientific Fact:</strong> ${el.fact}</p>
+`;
+
 }
 
 /* =========================================================
-   DECK SYSTEM
-========================================================= */
-
-function buildDeck(){
-    state.deck = elements.map(e=>({
-        id:e.n,
-        el:e,
-        mastery:0
-    }));
-}
-
-function drawCard(){
-    const due = state.deck.filter(c=>{
-        const sm = state.sm2[c.id];
-        return !sm || sm.due <= Date.now();
-    });
-
-    return rand(due.length ? due : state.deck);
-}
-
-/* =========================================================
-   QUESTION ENGINE
+   GENERATE QUIZ
 ========================================================= */
 
 function generateQuestion(){
-    const card = drawCard();
-    const el = card.el;
 
-    const modes = ["symbol","name","atomic","type","group","period"];
-    const mode = rand(modes);
+const random =
+elements[Math.floor(Math.random() * elements.length)];
 
-    state.currentCard = card;
-    state.currentQuestion = {el, mode};
+const modes = [
+"number",
+"symbol",
+"type"
+];
 
-    initSM2(el.n);
+const mode =
+modes[Math.floor(Math.random() * modes.length)];
 
-    const qMap = {
-        symbol:`Symbol of ${el.name}?`,
-        name:`Name of ${el.n}?`,
-        atomic:`Atomic number of ${el.name}?`,
-        type:`Type of ${el.name}?`,
-        group:`Group of ${el.name}?`,
-        period:`Period of ${el.name}?`
-    };
+currentQuestion.element = random;
+currentQuestion.mode = mode;
 
-    $("quizQuestion").innerText = qMap[mode];
+document.getElementById("feedback").style.display = "none";
 
-    $("answerInput").value = "";
+document.getElementById("answerInput").value = "";
+
+if(mode === "number"){
+
+document.getElementById("quizQuestion").innerHTML =
+`What is the atomic number of <strong>${random.name}</strong>?`;
+
+}
+
+if(mode === "symbol"){
+
+document.getElementById("quizQuestion").innerHTML =
+`What is the symbol of <strong>${random.name}</strong>?`;
+
+}
+
+if(mode === "type"){
+
+document.getElementById("quizQuestion").innerHTML =
+`What type of element is <strong>${random.name}</strong>?`;
+
+}
+
 }
 
 /* =========================================================
-   ELEMENTAL REACTION SYSTEM (CHEMISTRY DAMAGE LOGIC)
-========================================================= */
-
-function elementalMultiplier(a, b){
-
-    const chart = {
-        "Alkali Metal": { "Nonmetal": 1.3, "Halogen": 1.5 },
-        "Nonmetal": { "Metal": 1.2, "Alkali Metal": 1.4 },
-        "Halogen": { "Alkali Metal": 1.6 },
-        "Noble Gas": { "any": 0.8 }
-    };
-
-    const row = chart[a.type] || {};
-
-    return row[b.type] || row.any || 1;
-}
-
-/* =========================================================
-   ANSWER CHECK CORE
+   SUBMIT ANSWER
 ========================================================= */
 
 function submitAnswer(){
-    if(!state.currentQuestion) return;
 
-    const {el, mode} = state.currentQuestion;
+const user =
+document.getElementById("answerInput")
+.value
+.trim()
+.toLowerCase();
 
-    const input = $("answerInput").value.trim().toLowerCase();
+const el = currentQuestion.element;
 
-    const correct = getAnswer(el, mode);
+if(!el){
 
-    const isCorrect = input === correct;
+alert("Generate a question first.");
 
-    state.total++;
+return;
 
-    logHeatmap(el, isCorrect);
+}
 
-    const difficulty = state.difficulty;
+let correct = "";
+let explanation = "";
 
-    let sm2Quality = isCorrect ? 5 : 2;
+if(currentQuestion.mode === "number"){
 
-    gradeSM2(el.n, sm2Quality);
+correct = String(el.num).toLowerCase();
 
-    if(isCorrect){
-        state.correct++;
-        state.streak++;
-        state.multiplier++;
+explanation =
+`${el.name} has atomic number ${el.num}
+because it contains ${el.num} protons
+inside its nucleus.`;
 
-        state.score += 10 * state.multiplier;
+}
 
-        applyBossDamage(el);
+if(currentQuestion.mode === "symbol"){
 
-    } else {
-        state.streak = 0;
-        state.multiplier = 1;
-    }
+correct = el.symbol.toLowerCase();
 
-    updateUI();
+explanation =
+`The symbol for ${el.name}
+is ${el.symbol}. Chemical symbols are
+used internationally in chemistry.`;
 
-    generateQuestion();
+}
+
+if(currentQuestion.mode === "type"){
+
+correct = el.type.toLowerCase();
+
+explanation =
+`${el.name} belongs to the category:
+${el.type}. Elements are grouped by
+their chemical properties and behaviors.`;
+
+}
+
+totalQuestions++;
+
+if(user === correct){
+
+score += 10;
+correctAnswers++;
+
+showCorrect(explanation);
+
+playCorrectSound();
+
+}else{
+
+showWrong(correct, explanation);
+
+playWrongSound();
+
+}
+
+updateStats();
+
+unlockBadges();
+
 }
 
 /* =========================================================
-   ANSWER NORMALIZER
+   SHOW CORRECT
 ========================================================= */
 
-function getAnswer(el, mode){
-    switch(mode){
-        case "symbol": return el.s.toLowerCase();
-        case "name": return el.name.toLowerCase();
-        case "atomic": return String(el.n);
-        case "type": return el.type.toLowerCase();
-        case "group": return String(el.group);
-        case "period": return String(el.period);
-    }
-}
+function showCorrect(explanation){
 
-/* =========================================================
-   BOSS CORE SYSTEM
-========================================================= */
+const feedback =
+document.getElementById("feedback");
 
-function initBoss(){
-    state.boss.active = true;
-    state.boss.hp = 100;
-    state.boss.phase = 1;
-}
+feedback.style.display = "block";
 
-function applyBossDamage(el){
-    if(!state.boss.active && state.score > 150){
-        initBoss();
-    }
+feedback.className = "correctBox";
 
-    if(!state.boss.active) return;
+document.getElementById("feedbackTitle").innerHTML =
+`✅ Correct!`;
 
-    const dmg = 10 * elementalMultiplier(el, el);
+document.getElementById("feedbackTitle")
+.className = "feedbackTitle correctText";
 
-    state.boss.hp -= dmg;
-
-    if(state.boss.hp <= 0){
-        state.boss.active = false;
-        state.score += 100;
-        alert("Boss Defeated!");
-    }
-}
-
-/* =========================================================
-   UI UPDATE (MINIMAL SAFE)
-========================================================= */
-
-function updateUI(){
-    $("score").innerText = state.score;
-    $("questions").innerText = state.total;
-
-    const acc = state.total
-        ? Math.round((state.correct/state.total)*100)
-        : 0;
-
-    $("accuracy").innerText = acc + "%";
-
-    const bar = $("progressBar");
-    if(bar){
-        bar.style.width = clamp(state.score/2,0,100) + "%";
-    }
-}
-
-/* =========================================================
-   INIT
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", ()=>{
-    buildDeck();
-    generateQuestion();
-    updateUI();
-});
-
-
-/* =========================================================
-   PERIODIC TABLE MEMORY ENGINE — CHUNK 2/2
-   COMBAT + BOSS AI + ANALYTICS + UI SYSTEMS
-========================================================= */
-
-/* =========================================================
-   COMBO SYSTEM
-========================================================= */
-
-const combo = {
-    chain: 0,
-    lastTime: 0,
-    timeout: 3000
-};
-
-function registerCombo(){
-    const now = Date.now();
-
-    if(now - combo.lastTime < combo.timeout){
-        combo.chain++;
-    } else {
-        combo.chain = 1;
-    }
-
-    combo.lastTime = now;
-
-    return combo.chain;
-}
-
-/* =========================================================
-   BOSS AI SYSTEM (PHASES + ATTACK PATTERNS)
-========================================================= */
-
-const bossAI = {
-    patterns: [
-        "heavy",
-        "elemental",
-        "heal",
-        "rage"
-    ],
-
-    attack(){
-        if(!state.boss.active) return;
-
-        const phase = state.boss.phase;
-
-        if(state.boss.hp < 70) state.boss.phase = 2;
-        if(state.boss.hp < 40) state.boss.phase = 3;
-
-        const attack = this.patterns[
-            Math.floor(Math.random()*this.patterns.length)
-        ];
-
-        executeBossAttack(attack, phase);
-    }
-};
-
-function executeBossAttack(type, phase){
-
-    let dmg = 0;
-
-    switch(type){
-
-        case "heavy":
-            dmg = 12 + phase * 5;
-            break;
-
-        case "elemental":
-            dmg = 8 + phase * 3;
-            break;
-
-        case "heal":
-            state.boss.hp += 10;
-            return;
-
-        case "rage":
-            dmg = 20;
-            break;
-    }
-
-    state.playerHP = (state.playerHP || 100) - dmg;
-
-    spawnDamageFX(dmg, "boss");
-}
-
-/* =========================================================
-   BOSS TURN LOOP
-========================================================= */
-
-function bossLoop(){
-    if(!state.boss.active) return;
-
-    if(state.boss.attackCooldown-- <= 0){
-        bossAI.attack();
-        state.boss.attackCooldown = 5;
-    }
-
-    requestAnimationFrame(bossLoop);
-}
-
-document.addEventListener("DOMContentLoaded", bossLoop);
-
-/* =========================================================
-   ELEMENT DAMAGE FX
-========================================================= */
-
-function spawnDamageFX(value, source){
-
-    const fx = document.createElement("div");
-
-    fx.innerText = `-${value}`;
-    fx.style.position = "absolute";
-    fx.style.left = "50%";
-    fx.style.top = "40%";
-    fx.style.color = source === "boss" ? "red" : "lime";
-    fx.style.fontSize = "24px";
-    fx.style.fontWeight = "bold";
-    fx.style.animation = "floatUp 1s ease-out forwards";
-
-    document.body.appendChild(fx);
-
-    setTimeout(()=>fx.remove(),1000);
-}
-
-/* =========================================================
-   ANALYTICS ENGINE
-========================================================= */
-
-function getWeakElements(){
-
-    const arr = Object.entries(state.heatmap)
-        .map(([id, data])=>{
-
-            const accuracy =
-                data.correct / (data.correct + data.wrong);
-
-            return {
-                id,
-                accuracy: isNaN(accuracy) ? 0 : accuracy
-            };
-        })
-        .sort((a,b)=>a.accuracy - b.accuracy);
-
-    return arr.slice(0,10);
-}
-
-/* =========================================================
-   ANALYTICS DASHBOARD RENDER
-========================================================= */
-
-function renderAnalytics(){
-
-    const panel = $("analyticsPanel");
-    if(!panel) return;
-
-    const weak = getWeakElements();
-
-    panel.innerHTML = `
-        <h2>📊 Learning Heatmap</h2>
-        <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:4px;">
-            ${Object.entries(state.heatmap).map(([id,d])=>{
-
-                const intensity =
-                    (d.wrong/(d.correct+d.wrong)) || 0;
-
-                return `
-                    <div style="
-                        height:20px;
-                        background:rgb(${255*intensity},50,50);
-                    " title="Element ${id}">
-                    </div>
-                `;
-            }).join("")}
-        </div>
-
-        <h3>Weak Elements</h3>
-        <ul>
-            ${weak.map(w=>`
-                <li>Element ${w.id} — ${(w.accuracy*100).toFixed(1)}%</li>
-            `).join("")}
-        </ul>
-    `;
-}
-
-/* =========================================================
-   DECK UI SYSTEM
-========================================================= */
-
-function renderDeck(){
-
-    const panel = $("deckPanel");
-    if(!panel) return;
-
-    panel.innerHTML = state.deck.map(card=>{
-
-        const sm = state.sm2[card.id] || {};
-
-        const due = sm.due ? new Date(sm.due).toLocaleDateString() : "now";
-
-        return `
-            <div style="
-                padding:8px;
-                margin:4px;
-                border:1px solid #444;
-            ">
-                <b>${card.el.name}</b><br/>
-                Mastery: ${card.mastery || 0}<br/>
-                Due: ${due}
-            </div>
-        `;
-    }).join("");
-}
-
-/* =========================================================
-   MASTERY SYSTEM
-========================================================= */
-
-function updateMastery(el, correct){
-
-    const card = state.deck.find(c=>c.id === el.n);
-    if(!card) return;
-
-    if(correct){
-        card.mastery += 0.1;
-    } else {
-        card.mastery -= 0.05;
-    }
-
-    card.mastery = Math.max(0, Math.min(1, card.mastery));
-}
-
-/* =========================================================
-   HOOK INTO ANSWER SYSTEM
-   (PATCH INTO CHUNK 1 LOGIC)
-========================================================= */
-
-function postAnswerHook(el, correct){
-
-    registerCombo();
-
-    updateMastery(el, correct);
-
-    if(state.boss.active && correct){
-        state.boss.hp -= 5 * combo.chain;
-    }
-
-    renderAnalytics();
-    renderDeck();
-}
-
-/* =========================================================
-   MODIFY submitAnswer (SAFE PATCH WRAPPER)
-========================================================= */
-
-const _oldSubmit = submitAnswer;
-
-submitAnswer = function(){
-
-    const q = state.currentQuestion;
-    if(!q) return;
-
-    const el = q.el;
-
-    const beforeScore = state.score;
-
-    _oldSubmit();
-
-    const afterScore = state.score;
-
-    const correct = afterScore > beforeScore;
-
-    postAnswerHook(el, correct);
-};
-
-/* =========================================================
-   VISUAL COMBAT BAR UI
-========================================================= */
-
-function renderBossUI(){
-
-    const bar = $("bossBar");
-    if(!bar) return;
-
-    const pct =
-        (state.boss.hp / state.boss.maxHp) * 100;
-
-    bar.style.width = pct + "%";
-
-    bar.style.background =
-        pct > 60
-        ? "green"
-        : pct > 30
-        ? "orange"
-        : "red";
-}
-
-/* =========================================================
-   SIMPLE CSS INJECTION (ANIMATION SUPPORT)
-========================================================= */
-
-const style = document.createElement("style");
-
-style.innerHTML = `
-@keyframes floatUp {
-    0% { transform: translateY(0); opacity:1; }
-    100% { transform: translateY(-60px); opacity:0; }
-}
+document.getElementById("explanation").innerHTML =
+`
+<strong>Why?</strong><br><br>
+${explanation}
 `;
 
-document.head.appendChild(style);
+}
 
 /* =========================================================
-   AUTO ANALYTICS LOOP
+   SHOW WRONG
 ========================================================= */
 
-setInterval(()=>{
+function showWrong(answer, explanation){
 
-    renderAnalytics();
-    renderDeck();
+const feedback =
+document.getElementById("feedback");
 
-}, 5000);
+feedback.style.display = "block";
+
+feedback.className = "wrongBox";
+
+document.getElementById("feedbackTitle").innerHTML =
+`❌ Incorrect`;
+
+document.getElementById("feedbackTitle")
+.className = "feedbackTitle wrongText";
+
+document.getElementById("explanation").innerHTML =
+`
+<strong>Correct Answer:</strong> ${answer}<br><br>
+
+<strong>Why?</strong><br><br>
+
+${explanation}
+`;
+
+}
 
 /* =========================================================
-   FINAL BOOT PATCH
+   UPDATE STATS
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", ()=>{
+function updateStats(){
 
-    if(!state.deck.length){
-        buildDeck();
-    }
+document.getElementById("score").innerText =
+score;
 
-    renderAnalytics();
-    renderDeck();
+document.getElementById("questions").innerText =
+totalQuestions;
+
+let accuracy = 0;
+
+if(totalQuestions > 0){
+
+accuracy =
+Math.round(
+(correctAnswers / totalQuestions) * 100
+);
+
+}
+
+document.getElementById("accuracy").innerText =
+accuracy + "%";
+
+const progress =
+Math.min(score,100);
+
+document.getElementById("progressBar")
+.style.width = progress + "%";
+
+}
+
+/* =========================================================
+   HINT SYSTEM
+========================================================= */
+
+function showHint(){
+
+const el = currentQuestion.element;
+
+if(!el){
+
+alert("Generate a question first.");
+
+return;
+
+}
+
+if(currentQuestion.mode === "number"){
+
+alert(
+`Hint:
+The atomic number is between
+${el.num - 2} and ${el.num + 2}`
+);
+
+}
+
+if(currentQuestion.mode === "symbol"){
+
+alert(
+`Hint:
+The symbol starts with:
+${el.symbol[0]}`
+);
+
+}
+
+if(currentQuestion.mode === "type"){
+
+alert(
+`Hint:
+It belongs to a chemistry family
+starting with:
+${el.type[0]}`
+);
+
+}
+
+}
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+function unlockBadges(){
+
+const badgeContainer =
+document.getElementById("badges");
+
+badgeContainer.innerHTML = "";
+
+if(score >= 20){
+
+addBadge("🥉 Beginner Chemist");
+
+}
+
+if(score >= 50){
+
+addBadge("🥈 Element Explorer");
+
+}
+
+if(score >= 100){
+
+addBadge("🥇 Atomic Master");
+
+}
+
+if(score >= 150){
+
+addBadge("🏆 Periodic Legend");
+
+}
+
+}
+
+/* =========================================================
+   ADD BADGE
+========================================================= */
+
+function addBadge(text){
+
+const badge =
+document.createElement("div");
+
+badge.className = "badge";
+
+badge.innerText = text;
+
+document.getElementById("badges")
+.appendChild(badge);
+
+}
+
+/* =========================================================
+   THEME TOGGLE
+========================================================= */
+
+let darkMode = true;
+
+function toggleTheme(){
+
+darkMode = !darkMode;
+
+if(darkMode){
+
+document.body.style.background =
+"#0f172a";
+
+document.body.style.color =
+"white";
+
+}else{
+
+document.body.style.background =
+"#f8fafc";
+
+document.body.style.color =
+"black";
+
+}
+
+}
+
+/* =========================================================
+   SOUNDS
+========================================================= */
+
+function playCorrectSound(){
+
+const ctx =
+new(window.AudioContext ||
+window.webkitAudioContext)();
+
+const osc =
+ctx.createOscillator();
+
+osc.type = "triangle";
+
+osc.frequency.value = 700;
+
+osc.connect(ctx.destination);
+
+osc.start();
+
+osc.stop(ctx.currentTime + 0.15);
+
+}
+
+function playWrongSound(){
+
+const ctx =
+new(window.AudioContext ||
+window.webkitAudioContext)();
+
+const osc =
+ctx.createOscillator();
+
+osc.type = "sawtooth";
+
+osc.frequency.value = 180;
+
+osc.connect(ctx.destination);
+
+osc.start();
+
+osc.stop(ctx.currentTime + 0.2);
+
+}
+
+/* =========================================================
+   ENTER KEY SUPPORT
+========================================================= */
+
+document.addEventListener("keydown", function(e){
+
+if(e.key === "Enter"){
+
+submitAnswer();
+
+}
+
 });
 
+/* =========================================================
+   AUTO FIRST QUESTION
+========================================================= */
+
+setTimeout(() => {
+
+generateQuestion();
+
+}, 1000);
+
 </script>
+
 </body>
 </html>
