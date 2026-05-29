@@ -362,6 +362,68 @@ footer{
     background:linear-gradient(to right,#22c55e,#38bdf8);
     transition:0.4s;
 }
+
+.app {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* LEFT PANEL */
+.left-panel {
+  width: 320px;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+  background: #fafafa;
+}
+
+#searchBox {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* dropdown results */
+#suggestions {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.suggestion {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  background: white;
+}
+
+.suggestion:hover {
+  background: #f0f0f0;
+}
+
+.suggestion small {
+  color: #666;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+  flex: 1;
+  padding: 20px;
+}
+
+.fact {
+  margin-top: 15px;
+  padding: 10px;
+  background: #fff7d6;
+  border-left: 4px solid gold;
+}
+
+/* highlight */
+mark {
+  background: yellow;
+}
 </style>
 </head>
 
@@ -465,15 +527,25 @@ Accuracy:
 
 <div id="mainContent">
 
-<!-- LEFT PANEL -->
-<div class="panel">
+<div class="app">
 
-<h2>Periodic Elements</h2>
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
 
-<div id="elementGrid"></div>
+    <input id="searchBox" placeholder="Search element (e.g. ti, tan, gold)" />
 
-<div id="elementInfo">
-Click an element to learn details.
+    <div id="suggestions"></div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div id="elementInfo">
+      <h2>Click an element</h2>
+      <p>Search and select an element to see details + fact.</p>
+    </div>
+  </div>
+
 </div>
 
 <h3>Bohr Model</h3>
@@ -536,9 +608,7 @@ Explanation appears here.
 
 </div>
 
-<footer>
-Built with HTML, CSS, and JavaScript | Educational Chemistry Engine
-</footer>
+
 
 </section>
 
@@ -550,135 +620,239 @@ Built with HTML, CSS, and JavaScript | Educational Chemistry Engine
 
 
 const elements = [
+{n:1,s:"H",name:"Hydrogen",type:"Nonmetal",group:1,period:1,mass:1.008,fact:"Most abundant element in the universe."},
+{n:2,s:"He",name:"Helium",type:"Noble Gas",group:18,period:1,mass:4.0026,fact:"Used in balloons and is non-flammable."},
 
-{n:1,s:"H",name:"Hydrogen",type:"Nonmetal",group:1,period:1,mass:1.008},
-{n:2,s:"He",name:"Helium",type:"Noble Gas",group:18,period:1,mass:4.0026},
+{n:3,s:"Li",name:"Lithium",type:"Alkali Metal",group:1,period:2,mass:6.94,fact:"Used in rechargeable batteries."},
+{n:4,s:"Be",name:"Beryllium",type:"Alkaline Earth Metal",group:2,period:2,mass:9.0122,fact:"Strong and lightweight used in aerospace."},
+{n:5,s:"B",name:"Boron",type:"Metalloid",group:13,period:2,mass:10.81,fact:"Used in glass and detergents."},
+{n:6,s:"C",name:"Carbon",type:"Nonmetal",group:14,period:2,mass:12.011,fact:"Basis of all known life."},
+{n:7,s:"N",name:"Nitrogen",type:"Nonmetal",group:15,period:2,mass:14.007,fact:"Makes up most of Earth's atmosphere."},
+{n:8,s:"O",name:"Oxygen",type:"Nonmetal",group:16,period:2,mass:15.999,fact:"Essential for respiration."},
+{n:9,s:"F",name:"Fluorine",type:"Halogen",group:17,period:2,mass:18.998,fact:"Most reactive element."},
+{n:10,s:"Ne",name:"Neon",type:"Noble Gas",group:18,period:2,mass:20.18,fact:"Used in bright neon signs."},
 
-{n:3,s:"Li",name:"Lithium",type:"Alkali Metal",group:1,period:2,mass:6.94},
-{n:4,s:"Be",name:"Beryllium",type:"Alkaline Earth Metal",group:2,period:2,mass:9.0122},
-{n:5,s:"B",name:"Boron",type:"Metalloid",group:13,period:2,mass:10.81},
-{n:6,s:"C",name:"Carbon",type:"Nonmetal",group:14,period:2,mass:12.011},
-{n:7,s:"N",name:"Nitrogen",type:"Nonmetal",group:15,period:2,mass:14.007},
-{n:8,s:"O",name:"Oxygen",type:"Nonmetal",group:16,period:2,mass:15.999},
-{n:9,s:"F",name:"Fluorine",type:"Halogen",group:17,period:2,mass:18.998},
-{n:10,s:"Ne",name:"Neon",type:"Noble Gas",group:18,period:2,mass:20.180},
+{n:11,s:"Na",name:"Sodium",type:"Alkali Metal",group:1,period:3,mass:22.99,fact:"Reacts violently with water."},
+{n:12,s:"Mg",name:"Magnesium",type:"Alkaline Earth Metal",group:2,period:3,mass:24.305,fact:"Burns with bright white light."},
+{n:13,s:"Al",name:"Aluminium",type:"Post-transition Metal",group:13,period:3,mass:26.982,fact:"Lightweight metal used in cans and planes."},
+{n:14,s:"Si",name:"Silicon",type:"Metalloid",group:14,period:3,mass:28.085,fact:"Key material in computer chips."},
+{n:15,s:"P",name:"Phosphorus",type:"Nonmetal",group:15,period:3,mass:30.974,fact:"Essential for DNA and energy."},
+{n:16,s:"S",name:"Sulfur",type:"Nonmetal",group:16,period:3,mass:32.06,fact:"Used in fertilizers and chemicals."},
+{n:17,s:"Cl",name:"Chlorine",type:"Halogen",group:17,period:3,mass:35.45,fact:"Used to disinfect water."},
+{n:18,s:"Ar",name:"Argon",type:"Noble Gas",group:18,period:3,mass:39.948,fact:"Used in light bulbs."},
 
-{n:11,s:"Na",name:"Sodium",type:"Alkali Metal",group:1,period:3,mass:22.990},
-{n:12,s:"Mg",name:"Magnesium",type:"Alkaline Earth Metal",group:2,period:3,mass:24.305},
-{n:13,s:"Al",name:"Aluminium",type:"Post-transition Metal",group:13,period:3,mass:26.982},
-{n:14,s:"Si",name:"Silicon",type:"Metalloid",group:14,period:3,mass:28.085},
-{n:15,s:"P",name:"Phosphorus",type:"Nonmetal",group:15,period:3,mass:30.974},
-{n:16,s:"S",name:"Sulfur",type:"Nonmetal",group:16,period:3,mass:32.06},
-{n:17,s:"Cl",name:"Chlorine",type:"Halogen",group:17,period:3,mass:35.45},
-{n:18,s:"Ar",name:"Argon",type:"Noble Gas",group:18,period:3,mass:39.948},
+{n:19,s:"K",name:"Potassium",type:"Alkali Metal",group:1,period:4,mass:39.098,fact:"Important for nerve function."},
+{n:20,s:"Ca",name:"Calcium",type:"Alkaline Earth Metal",group:2,period:4,mass:40.078,fact:"Builds bones and teeth."},
+{n:21,s:"Sc",name:"Scandium",type:"Transition Metal",group:3,period:4,mass:44.956,fact:"Used in aerospace alloys."},
+{n:22,s:"Ti",name:"Titanium",type:"Transition Metal",group:4,period:4,mass:47.867,fact:"Strong, lightweight and corrosion resistant."},
+{n:23,s:"V",name:"Vanadium",type:"Transition Metal",group:5,period:4,mass:50.942,fact:"Strengthens steel."},
+{n:24,s:"Cr",name:"Chromium",type:"Transition Metal",group:6,period:4,mass:51.996,fact:"Used in stainless steel."},
+{n:25,s:"Mn",name:"Manganese",type:"Transition Metal",group:7,period:4,mass:54.938,fact:"Important in steel production."},
+{n:26,s:"Fe",name:"Iron",type:"Transition Metal",group:8,period:4,mass:55.845,fact:"Main metal in steel."},
+{n:27,s:"Co",name:"Cobalt",type:"Transition Metal",group:9,period:4,mass:58.933,fact:"Used in batteries."},
+{n:28,s:"Ni",name:"Nickel",type:"Transition Metal",group:10,period:4,mass:58.693,fact:"Used in coins and alloys."},
+{n:29,s:"Cu",name:"Copper",type:"Transition Metal",group:11,period:4,mass:63.546,fact:"Excellent electrical conductor."},
+{n:30,s:"Zn",name:"Zinc",type:"Transition Metal",group:12,period:4,mass:65.38,fact:"Prevents rust in steel."},
 
-{n:19,s:"K",name:"Potassium",type:"Alkali Metal",group:1,period:4,mass:39.098},
-{n:20,s:"Ca",name:"Calcium",type:"Alkaline Earth Metal",group:2,period:4,mass:40.078},
-{n:21,s:"Sc",name:"Scandium",type:"Transition Metal",group:3,period:4,mass:44.956},
-{n:22,s:"Ti",name:"Titanium",type:"Transition Metal",group:4,period:4,mass:47.867},
-{n:23,s:"V",name:"Vanadium",type:"Transition Metal",group:5,period:4,mass:50.942},
-{n:24,s:"Cr",name:"Chromium",type:"Transition Metal",group:6,period:4,mass:51.996},
-{n:25,s:"Mn",name:"Manganese",type:"Transition Metal",group:7,period:4,mass:54.938},
-{n:26,s:"Fe",name:"Iron",type:"Transition Metal",group:8,period:4,mass:55.845},
-{n:27,s:"Co",name:"Cobalt",type:"Transition Metal",group:9,period:4,mass:58.933},
-{n:28,s:"Ni",name:"Nickel",type:"Transition Metal",group:10,period:4,mass:58.693},
-{n:29,s:"Cu",name:"Copper",type:"Transition Metal",group:11,period:4,mass:63.546},
-{n:30,s:"Zn",name:"Zinc",type:"Transition Metal",group:12,period:4,mass:65.38},
-{n:31,s:"Ga",name:"Gallium",type:"Post-transition Metal",group:13,period:4,mass:69.723},
-{n:32,s:"Ge",name:"Germanium",type:"Metalloid",group:14,period:4,mass:72.630},
-{n:33,s:"As",name:"Arsenic",type:"Metalloid",group:15,period:4,mass:74.922},
-{n:34,s:"Se",name:"Selenium",type:"Nonmetal",group:16,period:4,mass:78.971},
-{n:35,s:"Br",name:"Bromine",type:"Halogen",group:17,period:4,mass:79.904},
-{n:36,s:"Kr",name:"Krypton",type:"Noble Gas",group:18,period:4,mass:83.798},
+{n:31,s:"Ga",name:"Gallium",type:"Post-transition Metal",group:13,period:4,mass:69.723,fact:"Melts in your hand."},
+{n:32,s:"Ge",name:"Germanium",type:"Metalloid",group:14,period:4,mass:72.63,fact:"Used in semiconductors."},
+{n:33,s:"As",name:"Arsenic",type:"Metalloid",group:15,period:4,mass:74.922,fact:"Toxic element used in pesticides."},
+{n:34,s:"Se",name:"Selenium",type:"Nonmetal",group:16,period:4,mass:78.971,fact:"Important trace nutrient."},
+{n:35,s:"Br",name:"Bromine",type:"Halogen",group:17,period:4,mass:79.904,fact:"One of two liquid elements at room temp."},
+{n:36,s:"Kr",name:"Krypton",type:"Noble Gas",group:18,period:4,mass:83.798,fact:"Used in lighting."},
 
-{n:37,s:"Rb",name:"Rubidium",type:"Alkali Metal",group:1,period:5,mass:85.468},
-{n:38,s:"Sr",name:"Strontium",type:"Alkaline Earth Metal",group:2,period:5,mass:87.62},
-{n:39,s:"Y",name:"Yttrium",type:"Transition Metal",group:3,period:5,mass:88.906},
-{n:40,s:"Zr",name:"Zirconium",type:"Transition Metal",group:4,period:5,mass:91.224},
-{n:41,s:"Nb",name:"Niobium",type:"Transition Metal",group:5,period:5,mass:92.906},
-{n:42,s:"Mo",name:"Molybdenum",type:"Transition Metal",group:6,period:5,mass:95.95},
-{n:43,s:"Tc",name:"Technetium",type:"Transition Metal",group:7,period:5,mass:98},
-{n:44,s:"Ru",name:"Ruthenium",type:"Transition Metal",group:8,period:5,mass:101.07},
-{n:45,s:"Rh",name:"Rhodium",type:"Transition Metal",group:9,period:5,mass:102.91},
-{n:46,s:"Pd",name:"Palladium",type:"Transition Metal",group:10,period:5,mass:106.42},
-{n:47,s:"Ag",name:"Silver",type:"Transition Metal",group:11,period:5,mass:107.87},
-{n:48,s:"Cd",name:"Cadmium",type:"Transition Metal",group:12,period:5,mass:112.41},
-{n:49,s:"In",name:"Indium",type:"Post-transition Metal",group:13,period:5,mass:114.82},
-{n:50,s:"Sn",name:"Tin",type:"Post-transition Metal",group:14,period:5,mass:118.71},
-{n:51,s:"Sb",name:"Antimony",type:"Metalloid",group:15,period:5,mass:121.76},
-{n:52,s:"Te",name:"Tellurium",type:"Metalloid",group:16,period:5,mass:127.60},
-{n:53,s:"I",name:"Iodine",type:"Halogen",group:17,period:5,mass:126.90},
-{n:54,s:"Xe",name:"Xenon",type:"Noble Gas",group:18,period:5,mass:131.29},
+{n:37,s:"Rb",name:"Rubidium",type:"Alkali Metal",group:1,period:5,mass:85.468,fact:"Highly reactive metal."},
+{n:38,s:"Sr",name:"Strontium",type:"Alkaline Earth Metal",group:2,period:5,mass:87.62,fact:"Used in red fireworks."},
+{n:39,s:"Y",name:"Yttrium",type:"Transition Metal",group:3,period:5,mass:88.906,fact:"Used in LEDs and superconductors."},
+{n:40,s:"Zr",name:"Zirconium",type:"Transition Metal",group:4,period:5,mass:91.224,fact:"Highly corrosion resistant."},
 
-{n:55,s:"Cs",name:"Cesium",type:"Alkali Metal",group:1,period:6,mass:132.91},
-{n:56,s:"Ba",name:"Barium",type:"Alkaline Earth Metal",group:2,period:6,mass:137.33},
-{n:57,s:"La",name:"Lanthanum",type:"Lanthanide",group:3,period:6,mass:138.91},
-{n:58,s:"Ce",name:"Cerium",type:"Lanthanide",group:3,period:6,mass:140.12},
-{n:59,s:"Pr",name:"Praseodymium",type:"Lanthanide",group:3,period:6,mass:140.91},
-{n:60,s:"Nd",name:"Neodymium",type:"Lanthanide",group:3,period:6,mass:144.24},
-{n:61,s:"Pm",name:"Promethium",type:"Lanthanide",group:3,period:6,mass:145},
-{n:62,s:"Sm",name:"Samarium",type:"Lanthanide",group:3,period:6,mass:150.36},
-{n:63,s:"Eu",name:"Europium",type:"Lanthanide",group:3,period:6,mass:151.96},
-{n:64,s:"Gd",name:"Gadolinium",type:"Lanthanide",group:3,period:6,mass:157.25},
-{n:65,s:"Tb",name:"Terbium",type:"Lanthanide",group:3,period:6,mass:158.93},
-{n:66,s:"Dy",name:"Dysprosium",type:"Lanthanide",group:3,period:6,mass:162.50},
-{n:67,s:"Ho",name:"Holmium",type:"Lanthanide",group:3,period:6,mass:164.93},
-{n:68,s:"Er",name:"Erbium",type:"Lanthanide",group:3,period:6,mass:167.26},
-{n:69,s:"Tm",name:"Thulium",type:"Lanthanide",group:3,period:6,mass:168.93},
-{n:70,s:"Yb",name:"Ytterbium",type:"Lanthanide",group:3,period:6,mass:173.05},
-{n:71,s:"Lu",name:"Lutetium",type:"Lanthanide",group:3,period:6,mass:174.97},
+{n:41,s:"Nb",name:"Niobium",type:"Transition Metal",group:5,period:5,mass:92.906,fact:"Used in superconductors."},
+{n:42,s:"Mo",name:"Molybdenum",type:"Transition Metal",group:6,period:5,mass:95.95,fact:"Strengthens steel at high heat."},
+{n:43,s:"Tc",name:"Technetium",type:"Transition Metal",group:7,period:5,mass:98,fact:"First artificially made element."},
+{n:44,s:"Ru",name:"Ruthenium",type:"Transition Metal",group:8,period:5,mass:101.07,fact:"Used in electronics."},
+{n:45,s:"Rh",name:"Rhodium",type:"Transition Metal",group:9,period:5,mass:102.91,fact:"Very rare and valuable."},
+{n:46,s:"Pd",name:"Palladium",type:"Transition Metal",group:10,period:5,mass:106.42,fact:"Used in catalytic converters."},
+{n:47,s:"Ag",name:"Silver",type:"Transition Metal",group:11,period:5,mass:107.87,fact:"Best electrical conductor."},
+{n:48,s:"Cd",name:"Cadmium",type:"Transition Metal",group:12,period:5,mass:112.41,fact:"Used in batteries."},
 
-{n:72,s:"Hf",name:"Hafnium",type:"Transition Metal",group:4,period:6,mass:178.49},
-{n:73,s:"Ta",name:"Tantalum",type:"Transition Metal",group:5,period:6,mass:180.95},
-{n:74,s:"W",name:"Tungsten",type:"Transition Metal",group:6,period:6,mass:183.84},
-{n:75,s:"Re",name:"Rhenium",type:"Transition Metal",group:7,period:6,mass:186.21},
-{n:76,s:"Os",name:"Osmium",type:"Transition Metal",group:8,period:6,mass:190.23},
-{n:77,s:"Ir",name:"Iridium",type:"Transition Metal",group:9,period:6,mass:192.22},
-{n:78,s:"Pt",name:"Platinum",type:"Transition Metal",group:10,period:6,mass:195.08},
-{n:79,s:"Au",name:"Gold",type:"Transition Metal",group:11,period:6,mass:196.97},
-{n:80,s:"Hg",name:"Mercury",type:"Transition Metal",group:12,period:6,mass:200.59},
-{n:81,s:"Tl",name:"Thallium",type:"Post-transition Metal",group:13,period:6,mass:204.38},
-{n:82,s:"Pb",name:"Lead",type:"Post-transition Metal",group:14,period:6,mass:207.2},
-{n:83,s:"Bi",name:"Bismuth",type:"Post-transition Metal",group:15,period:6,mass:208.98},
-{n:84,s:"Po",name:"Polonium",type:"Metalloid",group:16,period:6,mass:209},
-{n:85,s:"At",name:"Astatine",type:"Halogen",group:17,period:6,mass:210},
-{n:86,s:"Rn",name:"Radon",type:"Noble Gas",group:18,period:6,mass:222},
+{n:49,s:"In",name:"Indium",type:"Post-transition Metal",group:13,period:5,mass:114.82,fact:"Used in touchscreens."},
+{n:50,s:"Sn",name:"Tin",type:"Post-transition Metal",group:14,period:5,mass:118.71,fact:"Used in solder."},
+{n:51,s:"Sb",name:"Antimony",type:"Metalloid",group:15,period:5,mass:121.76,fact:"Used in flame retardants."},
+{n:52,s:"Te",name:"Tellurium",type:"Metalloid",group:16,period:5,mass:127.6,fact:"Used in solar panels."},
+{n:53,s:"I",name:"Iodine",type:"Halogen",group:17,period:5,mass:126.9,fact:"Needed for thyroid health."},
+{n:54,s:"Xe",name:"Xenon",type:"Noble Gas",group:18,period:5,mass:131.29,fact:"Used in high-intensity lamps."},
 
-{n:87,s:"Fr",name:"Francium",type:"Alkali Metal",group:1,period:7,mass:223},
-{n:88,s:"Ra",name:"Radium",type:"Alkaline Earth Metal",group:2,period:7,mass:226},
-{n:89,s:"Ac",name:"Actinium",type:"Actinide",group:3,period:7,mass:227},
-{n:90,s:"Th",name:"Thorium",type:"Actinide",group:3,period:7,mass:232.04},
-{n:91,s:"Pa",name:"Protactinium",type:"Actinide",group:3,period:7,mass:231.04},
-{n:92,s:"U",name:"Uranium",type:"Actinide",group:3,period:7,mass:238.03},
-{n:93,s:"Np",name:"Neptunium",type:"Actinide",group:3,period:7,mass:237},
-{n:94,s:"Pu",name:"Plutonium",type:"Actinide",group:3,period:7,mass:244},
-{n:95,s:"Am",name:"Americium",type:"Actinide",group:3,period:7,mass:243},
-{n:96,s:"Cm",name:"Curium",type:"Actinide",group:3,period:7,mass:247},
-{n:97,s:"Bk",name:"Berkelium",type:"Actinide",group:3,period:7,mass:247},
-{n:98,s:"Cf",name:"Californium",type:"Actinide",group:3,period:7,mass:251},
-{n:99,s:"Es",name:"Einsteinium",type:"Actinide",group:3,period:7,mass:252},
-{n:100,s:"Fm",name:"Fermium",type:"Actinide",group:3,period:7,mass:257},
-{n:101,s:"Md",name:"Mendelevium",type:"Actinide",group:3,period:7,mass:258},
-{n:102,s:"No",name:"Nobelium",type:"Actinide",group:3,period:7,mass:259},
-{n:103,s:"Lr",name:"Lawrencium",type:"Actinide",group:3,period:7,mass:266},
+{n:55,s:"Cs",name:"Cesium",type:"Alkali Metal",group:1,period:6,mass:132.91,fact:"Very reactive metal."},
+{n:56,s:"Ba",name:"Barium",type:"Alkaline Earth Metal",group:2,period:6,mass:137.33,fact:"Used in medical imaging."},
 
-{n:104,s:"Rf",name:"Rutherfordium",type:"Transition Metal",group:4,period:7,mass:267},
-{n:105,s:"Db",name:"Dubnium",type:"Transition Metal",group:5,period:7,mass:268},
-{n:106,s:"Sg",name:"Seaborgium",type:"Transition Metal",group:6,period:7,mass:269},
-{n:107,s:"Bh",name:"Bohrium",type:"Transition Metal",group:7,period:7,mass:270},
-{n:108,s:"Hs",name:"Hassium",type:"Transition Metal",group:8,period:7,mass:269},
-{n:109,s:"Mt",name:"Meitnerium",type:"Unknown",group:9,period:7,mass:278},
-{n:110,s:"Ds",name:"Darmstadtium",type:"Unknown",group:10,period:7,mass:281},
-{n:111,s:"Rg",name:"Roentgenium",type:"Unknown",group:11,period:7,mass:282},
-{n:112,s:"Cn",name:"Copernicium",type:"Transition Metal",group:12,period:7,mass:285},
-{n:113,s:"Nh",name:"Nihonium",type:"Unknown",group:13,period:7,mass:286},
-{n:114,s:"Fl",name:"Flerovium",type:"Post-transition Metal",group:14,period:7,mass:289},
-{n:115,s:"Mc",name:"Moscovium",type:"Unknown",group:15,period:7,mass:290},
-{n:116,s:"Lv",name:"Livermorium",type:"Unknown",group:16,period:7,mass:293},
-{n:117,s:"Ts",name:"Tennessine",type:"Halogen",group:17,period:7,mass:294},
-{n:118,s:"Og",name:"Oganesson",type:"Noble Gas",group:18,period:7,mass:294}
+{n:57,s:"La",name:"Lanthanum",type:"Lanthanide",group:3,period:6,mass:138.91,fact:"Used in camera lenses."},
+{n:58,s:"Ce",name:"Cerium",type:"Lanthanide",group:3,period:6,mass:140.12,fact:"Used in catalytic converters."},
+{n:59,s:"Pr",name:"Praseodymium",type:"Lanthanide",group:3,period:6,mass:140.91,fact:"Used in strong magnets."},
+{n:60,s:"Nd",name:"Neodymium",type:"Lanthanide",group:3,period:6,mass:144.24,fact:"Used in powerful magnets."},
 
+{n:61,s:"Pm",name:"Promethium",type:"Lanthanide",group:3,period:6,mass:145,fact:"Radioactive and rare on Earth."},
+{n:62,s:"Sm",name:"Samarium",type:"Lanthanide",group:3,period:6,mass:150.36,fact:"Used in magnets."},
+{n:63,s:"Eu",name:"Europium",type:"Lanthanide",group:3,period:6,mass:151.96,fact:"Used in TV screens."},
+{n:64,s:"Gd",name:"Gadolinium",type:"Lanthanide",group:3,period:6,mass:157.25,fact:"Used in MRI scans."},
+{n:65,s:"Tb",name:"Terbium",type:"Lanthanide",group:3,period:6,mass:158.93,fact:"Used in green phosphors."},
+{n:66,s:"Dy",name:"Dysprosium",type:"Lanthanide",group:3,period:6,mass:162.5,fact:"Used in magnets."},
+{n:67,s:"Ho",name:"Holmium",type:"Lanthanide",group:3,period:6,mass:164.93,fact:"Has strongest magnetic properties."},
+{n:68,s:"Er",name:"Erbium",type:"Lanthanide",group:3,period:6,mass:167.26,fact:"Used in fiber optics."},
+{n:69,s:"Tm",name:"Thulium",type:"Lanthanide",group:3,period:6,mass:168.93,fact:"One of the rarest lanthanides."},
+{n:70,s:"Yb",name:"Ytterbium",type:"Lanthanide",group:3,period:6,mass:173.05,fact:"Used in atomic clocks."},
+{n:71,s:"Lu",name:"Lutetium",type:"Lanthanide",group:3,period:6,mass:174.97,fact:"Used in PET scanners."},
+
+{n:72,s:"Hf",name:"Hafnium",type:"Transition Metal",group:4,period:6,mass:178.49,fact:"Used in nuclear reactors."},
+{n:73,s:"Ta",name:"Tantalum",type:"Transition Metal",group:5,period:6,mass:180.95,fact:"Used in electronics."},
+{n:74,s:"W",name:"Tungsten",type:"Transition Metal",group:6,period:6,mass:183.84,fact:"Has highest melting point."},
+{n:75,s:"Re",name:"Rhenium",type:"Transition Metal",group:7,period:6,mass:186.21,fact:"Used in jet engines."},
+{n:76,s:"Os",name:"Osmium",type:"Transition Metal",group:8,period:6,mass:190.23,fact:"One of the densest elements."},
+{n:77,s:"Ir",name:"Iridium",type:"Transition Metal",group:9,period:6,mass:192.22,fact:"Very corrosion resistant."},
+{n:78,s:"Pt",name:"Platinum",type:"Transition Metal",group:10,period:6,mass:195.08,fact:"Used in jewelry and catalysts."},
+{n:79,s:"Au",name:"Gold",type:"Transition Metal",group:11,period:6,mass:196.97,fact:"Highly valuable and unreactive."},
+{n:80,s:"Hg",name:"Mercury",type:"Transition Metal",group:12,period:6,mass:200.59,fact:"Only liquid metal at room temp."},
+
+{n:81,s:"Tl",name:"Thallium",type:"Post-transition Metal",group:13,period:6,mass:204.38,fact:"Highly toxic metal."},
+{n:82,s:"Pb",name:"Lead",type:"Post-transition Metal",group:14,period:6,mass:207.2,fact:"Heavy toxic metal used in batteries."},
+{n:83,s:"Bi",name:"Bismuth",type:"Post-transition Metal",group:15,period:6,mass:208.98,fact:"Non-toxic heavy metal."},
+{n:84,s:"Po",name:"Polonium",type:"Metalloid",group:16,period:6,mass:209,fact:"Highly radioactive element."},
+{n:85,s:"At",name:"Astatine",type:"Halogen",group:17,period:6,mass:210,fact:"Rarest naturally occurring element."},
+{n:86,s:"Rn",name:"Radon",type:"Noble Gas",group:18,period:6,mass:222,fact:"Radioactive gas."},
+
+{n:87,s:"Fr",name:"Francium",type:"Alkali Metal",group:1,period:7,mass:223,fact:"Extremely rare and radioactive."},
+{n:88,s:"Ra",name:"Radium",type:"Alkaline Earth Metal",group:2,period:7,mass:226,fact:"Glows in the dark due to radioactivity."},
+
+{n:89,s:"Ac",name:"Actinium",type:"Actinide",group:3,period:7,mass:227,fact:"First element in actinides."},
+{n:90,s:"Th",name:"Thorium",type:"Actinide",group:3,period:7,mass:232.04,fact:"Potential nuclear fuel."},
+{n:91,s:"Pa",name:"Protactinium",type:"Actinide",group:3,period:7,mass:231.04,fact:"Rare and radioactive."},
+{n:92,s:"U",name:"Uranium",type:"Actinide",group:3,period:7,mass:238.03,fact:"Used in nuclear reactors."},
+{n:93,s:"Np",name:"Neptunium",type:"Actinide",group:3,period:7,mass:237,fact:"First transuranic element."},
+{n:94,s:"Pu",name:"Plutonium",type:"Actinide",group:3,period:7,mass:244,fact:"Used in nuclear weapons and reactors."},
+{n:95,s:"Am",name:"Americium",type:"Actinide",group:3,period:7,mass:243,fact:"Used in smoke detectors."},
+{n:96,s:"Cm",name:"Curium",type:"Actinide",group:3,period:7,mass:247,fact:"Named after Marie and Pierre Curie."},
+{n:97,s:"Bk",name:"Berkelium",type:"Actinide",group:3,period:7,mass:247,fact:"Synthetic radioactive element."},
+{n:98,s:"Cf",name:"Californium",type:"Actinide",group:3,period:7,mass:251,fact:"Used in neutron sources."},
+{n:99,s:"Es",name:"Einsteinium",type:"Actinide",group:3,period:7,mass:252,fact:"Named after Albert Einstein."},
+{n:100,s:"Fm",name:"Fermium",type:"Actinide",group:3,period:7,mass:257,fact:"Created in nuclear explosions."},
+
+{n:101,s:"Md",name:"Mendelevium",type:"Actinide",group:3,period:7,mass:258,fact:"Named after Dmitri Mendeleev."},
+{n:102,s:"No",name:"Nobelium",type:"Actinide",group:3,period:7,mass:259,fact:"Named after Alfred Nobel."},
+{n:103,s:"Lr",name:"Lawrencium",type:"Actinide",group:3,period:7,mass:266,fact:"Synthetic and highly radioactive."},
+
+{n:104,s:"Rf",name:"Rutherfordium",type:"Transition Metal",group:4,period:7,mass:267,fact:"Named after Ernest Rutherford."},
+{n:105,s:"Db",name:"Dubnium",type:"Transition Metal",group:5,period:7,mass:268,fact:"Synthetic element."},
+{n:106,s:"Sg",name:"Seaborgium",type:"Transition Metal",group:6,period:7,mass:269,fact:"Named after Glenn Seaborg."},
+{n:107,s:"Bh",name:"Bohrium",type:"Transition Metal",group:7,period:7,mass:270,fact:"Named after Niels Bohr."},
+{n:108,s:"Hs",name:"Hassium",type:"Transition Metal",group:8,period:7,mass:269,fact:"Highly radioactive synthetic element."},
+{n:109,s:"Mt",name:"Meitnerium",type:"Unknown",group:9,period:7,mass:278,fact:"Named after Lise Meitner."},
+{n:110,s:"Ds",name:"Darmstadtium",type:"Unknown",group:10,period:7,mass:281,fact:"Synthetic element."},
+{n:111,s:"Rg",name:"Roentgenium",type:"Unknown",group:11,period:7,mass:282,fact:"Named after Wilhelm Röntgen."},
+{n:112,s:"Cn",name:"Copernicium",type:"Transition Metal",group:12,period:7,mass:285,fact:"Named after Nicolaus Copernicus."},
+
+{n:113,s:"Nh",name:"Nihonium",type:"Unknown",group:13,period:7,mass:286,fact:"First element discovered in Japan."},
+{n:114,s:"Fl",name:"Flerovium",type:"Post-transition Metal",group:14,period:7,mass:289,fact:"Synthetic superheavy element."},
+{n:115,s:"Mc",name:"Moscovium",type:"Unknown",group:15,period:7,mass:290,fact:"Named after Moscow region."},
+{n:116,s:"Lv",name:"Livermorium",type:"Unknown",group:16,period:7,mass:293,fact:"Synthetic radioactive element."},
+{n:117,s:"Ts",name:"Tennessine",type:"Halogen",group:17,period:7,mass:294,fact:"One of the newest discovered elements."},
+{n:118,s:"Og",name:"Oganesson",type:"Noble Gas",group:18,period:7,mass:294,fact:"Heaviest known element."}
 ];
+
+const searchBox = document.getElementById("searchBox");
+const suggestions = document.getElementById("suggestions");
+const infoPanel = document.getElementById("elementInfo");
+
+// 🔥 typo-tolerant scoring (simple fuzzy match)
+function scoreMatch(query, text) {
+  query = query.toLowerCase();
+  text = text.toLowerCase();
+
+  if (text.includes(query)) return 200;
+
+  let qi = 0;
+  let score = 0;
+
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === query[qi]) {
+      qi++;
+      score += 15;
+    }
+    if (qi >= query.length) break;
+  }
+
+  return (qi / query.length) * 100 + score;
+}
+
+// 🔥 highlight match
+function highlight(text, query) {
+  const regex = new RegExp(`(${query})`, "gi");
+  return text.replace(regex, `<mark>$1</mark>`);
+}
+
+// 📦 show element details (FACT PANEL)
+function showElement(el) {
+  infoPanel.innerHTML = `
+    <h2>${el.name} (${el.s})</h2>
+
+    <p><strong>Atomic Number:</strong> ${el.n}</p>
+    <p><strong>Type:</strong> ${el.type}</p>
+    <p><strong>Group:</strong> ${el.group}</p>
+    <p><strong>Period:</strong> ${el.period}</p>
+    <p><strong>Atomic Mass:</strong> ${el.mass}</p>
+
+    <div class="fact">
+      💡 <strong>Fact:</strong> ${el.fact}
+    </div>
+  `;
+}
+
+// 🔍 render suggestions
+function render(list, query) {
+  suggestions.innerHTML = "";
+
+  list.forEach(el => {
+    const div = document.createElement("div");
+    div.className = "suggestion";
+
+    div.innerHTML = `
+      <div>
+        <strong>${highlight(el.name, query)}</strong>
+        <small>(${el.s})</small>
+      </div>
+      <small>${el.type}</small>
+    `;
+
+    div.onclick = () => showElement(el);
+
+    suggestions.appendChild(div);
+  });
+}
+
+// 🔎 live search
+searchBox.addEventListener("input", (e) => {
+  const q = e.target.value.trim();
+
+  if (!q) {
+    suggestions.innerHTML = "";
+    return;
+  }
+
+  const results = elements
+    .map(el => ({
+      el,
+      score:
+        scoreMatch(q, el.name) +
+        scoreMatch(q, el.s) +
+        scoreMatch(q, el.type)
+    }))
+    .filter(x => x.score > 10)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10)
+    .map(x => x.el);
+
+  render(results, q);
+});
+
+
 /* =========================================================
    VARIABLES
 ========================================================= */
@@ -750,6 +924,7 @@ document.getElementById("elementInfo").innerHTML = `
 
 <p><strong>Category:</strong> ${el.type}</p>
 
+<p><strong>Fact:</strong>${el.fact}</p>
 `;
 }
 
