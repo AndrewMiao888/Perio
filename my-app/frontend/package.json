@@ -1,0 +1,22 @@
+{
+  "name": "periodic-table-engine",
+  "version": "1.0.0",
+  "description": "Periodic Table Memory Engine - Interactive chemistry learning game",
+  "type": "module",
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "preview": "nuxi preview",
+    "generate": "nuxi generate"
+  },
+  "dependencies": {
+    "vue": "^3.3.0",
+    "nuxt": "^3.8.0",
+    "@unhead/vue": "^1.8.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "eslint": "^8.50.0"
+  }
+}

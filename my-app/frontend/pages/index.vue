@@ -122,6 +122,8 @@
       <!-- ✅ ADD THESE HERE -->
       <div id="analyticsPanel"></div>
       <div id="deckPanel"></div>
+      <div id="elementGrid"></div>
+      <div id="badges"></div>
 
     </div>
 
@@ -175,6 +177,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useHead } from '@unhead/vue'
 
 useHead({
   title: 'Periodic Table Memory Engine',
@@ -573,11 +576,11 @@ function showHint() {
   }
 
   if (currentQuestion.mode === 'number') {
-    alert(`Hint:\nThe atomic number is between\n${el.num - 2} and ${el.num + 2}`)
+    alert(`Hint:\nThe atomic number is between\n${el.n - 2} and ${el.n + 2}`)
   }
 
   if (currentQuestion.mode === 'symbol') {
-    alert(`Hint:\nThe symbol starts with:\n${el.symbol[0]}`)
+    alert(`Hint:\nThe symbol starts with:\n${el.s[0]}`)
   }
 
   if (currentQuestion.mode === 'type') {
@@ -627,7 +630,8 @@ function toggleTheme() {
 }
 
 function playCorrectSound() {
-  const ctx = new (window.AudioContext || window.AudioContext)()
+  const AudioContext = (window as any).AudioContext || (window as any).webkitAudioContext
+  const ctx = new AudioContext()
   const osc = ctx.createOscillator()
   osc.type = 'triangle'
   osc.frequency.value = 700
@@ -637,7 +641,8 @@ function playCorrectSound() {
 }
 
 function playWrongSound() {
-  const ctx = new (window.AudioContext || window.AudioContext)()
+  const AudioContext = (window as any).AudioContext || (window as any).webkitAudioContext
+  const ctx = new AudioContext()
   const osc = ctx.createOscillator()
   osc.type = 'sawtooth'
   osc.frequency.value = 180
@@ -648,6 +653,7 @@ function playWrongSound() {
 
 onMounted(() => {
   suggestions.value = document.getElementById('suggestions') as HTMLDivElement | null
+  toggleTheme()
 
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -860,8 +866,14 @@ header h1{
   padding: 10px;
   font-size: 16px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #334155;
   border-radius: 6px;
+  background: #1e293b;
+  color: white;
+}
+
+#searchBox::placeholder {
+  color: #94a3b8;
 }
 
 /* dropdown results */
@@ -872,17 +884,18 @@ header h1{
 
 .suggestion {
   padding: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #334155;
   cursor: pointer;
-  background: white;
+  background: #1e293b;
+  color: white;
 }
 
 .suggestion:hover {
-  background: #f0f0f0;
+  background: #334155;
 }
 
 .suggestion small {
-  color: #666;
+  color: #cbd5e1;
 }
 
 /* RIGHT PANEL */
