@@ -22,8 +22,6 @@ export const elements: Element[] = [
     mass: 1.008,
     electronConfiguration: "1s1",
     bohrShells: [1],
-    discoveredBy: "Henry Cavendish",
-    discoveredYear: 1766,
     intro: "Hydrogen is the lightest and most abundant element in the universe. It forms the basis of water molecules and organic compounds, and it is crucial in energy applications such as hydrogen fuel cells and fusion research."
   },
   {
@@ -36,8 +34,6 @@ export const elements: Element[] = [
     mass: 4.0026,
     electronConfiguration: "1s2",
     bohrShells: [2],
-    discoveredBy: "Norman Lockyer",
-    discoveredYear: 1868,
     intro: "Helium is a colorless, odorless, inert gas used in balloons, airships, and cryogenics. Its low boiling point makes it vital for superconducting applications, and it is non-reactive, making it safe for various industrial uses."
   },
   {
@@ -50,8 +46,6 @@ export const elements: Element[] = [
     mass: 6.94,
     electronConfiguration: "[He] 2s1",
     bohrShells: [2,1],
-    discoveredBy: "Johan August Arfwedson",
-    discoveredYear: 1817,
     intro: "Lithium is a soft, silvery metal used extensively in batteries, pharmaceuticals, and ceramics. It is highly reactive, stored under oil, and plays a significant role in modern electronics due to its high energy density."
   },
   {
@@ -64,8 +58,6 @@ export const elements: Element[] = [
     mass: 9.0122,
     electronConfiguration: "[He] 2s2",
     bohrShells: [2,2],
-    discoveredBy: "Friedrich Wöhler",
-    discoveredYear: 1798,
     intro: "Beryllium is a rare, lightweight metal with high melting point and stiffness. It is used in aerospace materials, nuclear reactors, and precision instruments due to its strength and thermal stability."
   },
   {
@@ -78,8 +70,6 @@ export const elements: Element[] = [
     mass: 10.81,
     electronConfiguration: "[He] 2s2 2p1",
     bohrShells: [2,3],
-    discoveredBy: "Humphry Davy",
-    discoveredYear: 1892,
     intro: "Boron is a metalloid essential in glass, ceramics, and detergents. Its unique properties allow it to form strong covalent bonds, and it is crucial in borosilicate glass and various chemical reactions."
   },
   {
@@ -92,8 +82,6 @@ export const elements: Element[] = [
     mass: 12.011,
     electronConfiguration: "[He] 2s2 2p2",
     bohrShells: [2,4],
-    discoveredBy: "Antoine Lavoisier",
-    discoveredYear: 1789,
     intro: "Carbon is the backbone of organic chemistry. Found in all known life forms, it forms various allotropes including graphite, diamond, and graphene, each with unique physical properties."
   },
   {
@@ -106,8 +94,6 @@ export const elements: Element[] = [
     mass: 14.007,
     electronConfiguration: "[He] 2s2 2p3",
     bohrShells: [2,5],
-    discoveredBy: "Daniel Rutherford",
-    discoveredYear: 1772,
     intro: "Nitrogen makes up 78% of Earth's atmosphere and is essential for amino acids, proteins, and DNA. Industrially, it is used to produce ammonia and fertilizers through the Haber process."
   },
   {
@@ -120,8 +106,6 @@ export const elements: Element[] = [
     mass: 15.999,
     electronConfiguration: "[He] 2s2 2p4",
     bohrShells: [2,6],
-    discoveredBy: "Carl Wilhelm Scheele",
-    discoveredYear: 1774,
     intro: "Oxygen is vital for respiration and combustion. It forms water and numerous oxides, and its reactive nature makes it crucial for chemical and biological processes on Earth."
   },
   {
@@ -134,8 +118,6 @@ export const elements: Element[] = [
     mass: 18.998,
     electronConfiguration: "[He] 2s2 2p5",
     bohrShells: [2,7],
-    discoveredBy: "André-Marie Ampère",
-    discoveredYear: 1810,
     intro: "Fluorine is a highly reactive halogen used in toothpaste, Teflon production, and uranium enrichment. Its reactivity makes it both dangerous and industrially valuable."
   },
   {
@@ -148,8 +130,6 @@ export const elements: Element[] = [
     mass: 20.180,
     electronConfiguration: "[He] 2s2 2p6",
     bohrShells: [2,8],
-    discoveredBy: "Morris Travers",
-    discoveredYear: 1898,
     intro: "Neon is an inert noble gas known for its bright glow in neon signs. It is non-reactive and used in high-voltage indicators, vacuum tubes, and cryogenics."
   },
   {
@@ -162,8 +142,6 @@ export const elements: Element[] = [
     mass: 22.990,
     electronConfiguration: "[Ne] 3s1",
     bohrShells: [2,8,1],
-    discoveredBy: "Humphry Davy",
-    discoveredYear: 1807,
     intro: "Sodium is a soft, reactive metal essential for nerve function and fluid balance in organisms. Industrially, it is used in chemical synthesis, soap production, and street de-icing."
   },
   {
@@ -176,8 +154,6 @@ export const elements: Element[] = [
     mass: 24.305,
     electronConfiguration: "[Ne] 3s2",
     bohrShells: [2,8,2],
-    discoveredBy: "Joseph Black",
-    discoveredYear: 1755,
     intro: "Magnesium is a lightweight metal used in alloys, fireworks, and biological processes. It is essential for enzymes, bone formation, and energy metabolism in living organisms."
   },
   {
@@ -190,8 +166,6 @@ export const elements: Element[] = [
     mass: 26.982,
     electronConfiguration: "[Ne] 3s2 3p1",
     bohrShells: [2,8,3],
-    discoveredBy: "Hans Christian Ørsted",
-    discoveredYear: 1825,
     intro: "Aluminium is a lightweight, corrosion-resistant metal widely used in packaging, aerospace, and construction. It is highly recyclable and has excellent electrical conductivity."
   },
   {
@@ -204,8 +178,6 @@ export const elements: Element[] = [
     mass: 28.085,
     electronConfiguration: "[Ne] 3s2 3p2",
     bohrShells: [2,8,4],
-    discoveredBy: "Jöns Jacob Berzelius",
-    discoveredYear: 1823,
     intro: "Silicon is a metalloid crucial for electronics and solar cells. It forms compounds with oxygen to make glass and ceramics, and is abundant in Earth's crust."
   },
   {
@@ -218,8 +190,6 @@ export const elements: Element[] = [
     mass: 30.974,
     electronConfiguration: "[Ne] 3s2 3p3",
     bohrShells: [2,8,5],
-    discoveredBy: "Hennig Brand",
-    discoveredYear: 1669,
     intro: "Phosphorus is vital for DNA, ATP, and fertilizers. It exists in multiple forms and is reactive, making it essential for agriculture and biological energy transfer."
   },
   {
@@ -232,8 +202,6 @@ export const elements: Element[] = [
     mass: 32.06,
     electronConfiguration: "[Ne] 3s2 3p4",
     bohrShells: [2,8,6],
-    discoveredBy: "Antoine Lavoisier",
-    discoveredYear: 1777,
     intro: "Sulfur is a nonmetal used in fertilizers, chemicals, and pharmaceuticals. It forms compounds with oxygen and is essential for proteins and enzymes in living organisms."
   },
   {
@@ -246,8 +214,6 @@ export const elements: Element[] = [
   mass: 35.45,
   electronConfiguration: "[Ne] 3s2 3p5",
   bohrShells: [2,8,7],
-    discoveredBy: "Carl Wilhelm Scheele",
-    discoveredYear: 1774,
   intro: "Chlorine is a highly reactive halogen used to disinfect water, manufacture plastics, and produce many industrial chemicals. It is toxic in pure form but essential in controlled applications."
 },
 {
@@ -260,8 +226,6 @@ export const elements: Element[] = [
   mass: 39.948,
   electronConfiguration: "[Ne] 3s2 3p6",
   bohrShells: [2,8,8],
-    discoveredBy: "John William Strutt",
-    discoveredYear: 1894,
   intro: "Argon is an inert noble gas commonly used in welding, lighting, and laboratory environments. Its lack of chemical reactivity makes it valuable for protective atmospheres."
 },
 {
@@ -274,8 +238,6 @@ export const elements: Element[] = [
   mass: 39.098,
   electronConfiguration: "[Ar] 4s1",
   bohrShells: [2,8,8,1],
-    discoveredBy: "Humphry Davy",
-    discoveredYear: 1807,
   intro: "Potassium is an essential nutrient for plants and animals. It plays a major role in nerve signaling, muscle contraction, and maintaining fluid balance."
 },
 {
@@ -288,8 +250,6 @@ export const elements: Element[] = [
   mass: 40.078,
   electronConfiguration: "[Ar] 4s2",
   bohrShells: [2,8,8,2],
-    discoveredBy: "Humphry Davy",
-    discoveredYear: 1808,
   intro: "Calcium is vital for strong bones and teeth. It is also required for muscle function, blood clotting, and many cellular processes."
 },
 {
@@ -302,8 +262,6 @@ export const elements: Element[] = [
   mass: 44.956,
   electronConfiguration: "[Ar] 3d1 4s2",
   bohrShells: [2,8,9,2],
-    discoveredBy: "Lars Fredrik Nilson",
-    discoveredYear: 1879,
   intro: "Scandium is a lightweight transition metal used in aerospace alloys and sports equipment. It improves strength while keeping materials light."
 },
 {
@@ -316,8 +274,6 @@ export const elements: Element[] = [
   mass: 47.867,
   electronConfiguration: "[Ar] 3d2 4s2",
   bohrShells: [2,8,10,2],
-    discoveredBy: "Friedrich Wöhler",
-    discoveredYear: 1791,
   intro: "Titanium is strong, lightweight, and corrosion resistant. It is widely used in aircraft, medical implants, and high-performance engineering applications."
 },
 {
@@ -330,8 +286,6 @@ export const elements: Element[] = [
   mass: 50.942,
   electronConfiguration: "[Ar] 3d3 4s2",
   bohrShells: [2,8,11,2],
-    discoveredBy: "Andrés Manuel del Río",
-    discoveredYear: 1801,
   intro: "Vanadium strengthens steel and improves resistance to wear and corrosion. It is important in tools, construction materials, and advanced alloys."
 },
 {
@@ -344,8 +298,6 @@ export const elements: Element[] = [
   mass: 51.996,
   electronConfiguration: "[Ar] 3d5 4s1",
   bohrShells: [2,8,13,1],
-    discoveredBy: "Louis Nicolas Vauquelin",
-    discoveredYear: 1797,
   intro: "Chromium provides corrosion resistance and shine to stainless steel. It is widely used in metal plating and industrial manufacturing."
 },
 {
@@ -358,8 +310,6 @@ export const elements: Element[] = [
   mass: 54.938,
   electronConfiguration: "[Ar] 3d5 4s2",
   bohrShells: [2,8,13,2],
-    discoveredBy: "Johan Gottlieb Gahn",
-    discoveredYear: 1774,
   intro: "Manganese is essential for steel production and biological systems. It helps strengthen alloys and supports enzyme functions in living organisms."
 },
 {
@@ -384,8 +334,6 @@ export const elements: Element[] = [
   mass: 58.933,
   electronConfiguration: "[Ar] 3d7 4s2",
   bohrShells: [2,8,15,2],
-    discoveredBy: "Georg Brandt",
-    discoveredYear: 1735,
   intro: "Cobalt is used in batteries, magnets, and superalloys. It is also an important trace element required by some living organisms."
 },
 {
@@ -398,8 +346,6 @@ export const elements: Element[] = [
   mass: 58.693,
   electronConfiguration: "[Ar] 3d8 4s2",
   bohrShells: [2,8,16,2],
-    discoveredBy: "Axel Fredrik Cronstedt",
-    discoveredYear: 1751,
   intro: "Nickel is a corrosion-resistant metal used in stainless steel, coins, batteries, and industrial alloys. It is durable and versatile."
 },
 {
@@ -412,8 +358,6 @@ export const elements: Element[] = [
   mass: 63.546,
   electronConfiguration: "[Ar] 3d10 4s1",
   bohrShells: [2,8,18,1],
-    discoveredBy: "Unknown",
-    discoveredYear: 0,
   intro: "Copper is an excellent conductor of electricity and heat. It is widely used in wiring, electronics, plumbing, and renewable energy systems."
 },
 {
@@ -438,8 +382,6 @@ export const elements: Element[] = [
   mass: 69.723,
   electronConfiguration: "[Ar] 3d10 4s2 4p1",
   bohrShells: [2,8,18,3],
-    discoveredBy: "Paul-Émile Lecoq de Boisbaudran",
-    discoveredYear: 1875,
   intro: "Gallium is a soft metal that melts near room temperature. It is widely used in semiconductors, LEDs, and solar technologies."
 },
 {
@@ -452,8 +394,6 @@ export const elements: Element[] = [
   mass: 72.63,
   electronConfiguration: "[Ar] 3d10 4s2 4p2",
   bohrShells: [2,8,18,4],
-    discoveredBy: "Clemens Winkler",
-    discoveredYear: 1886,
   intro: "Germanium is a metalloid used in fiber optics, infrared optics, and semiconductor devices. It played an important role in early electronics."
 },
 {
@@ -466,8 +406,6 @@ export const elements: Element[] = [
   mass: 74.922,
   electronConfiguration: "[Ar] 3d10 4s2 4p3",
   bohrShells: [2,8,18,5],
-    discoveredBy: "Albertus Magnus",
-    discoveredYear: 1300,
   intro: "Arsenic is a toxic metalloid used in semiconductors and specialized alloys. Historically known as a poison, it also has industrial applications."
 },
 {
@@ -480,8 +418,6 @@ export const elements: Element[] = [
   mass: 78.971,
   electronConfiguration: "[Ar] 3d10 4s2 4p4",
   bohrShells: [2,8,18,6],
-    discoveredBy: "Jöns Jacob Berzelius",
-    discoveredYear: 1817,
   intro: "Selenium is a trace nutrient required by humans and animals. It is used in electronics, glass production, and photocells."
 },
 {
@@ -494,8 +430,6 @@ export const elements: Element[] = [
   mass: 79.904,
   electronConfiguration: "[Ar] 3d10 4s2 4p5",
   bohrShells: [2,8,18,7],
-    discoveredBy: "Carl Jacob Löwig",
-    discoveredYear: 1825,
   intro: "Bromine is a reddish-brown liquid halogen used in flame retardants, water treatment, and industrial chemicals. It is highly reactive."
 },
 {
@@ -508,8 +442,6 @@ export const elements: Element[] = [
   mass: 83.798,
   electronConfiguration: "[Ar] 3d10 4s2 4p6",
   bohrShells: [2,8,18,8],
-    discoveredBy: "Morris Travers",
-    discoveredYear: 1898,
   intro: "Krypton is a noble gas used in lighting, lasers, and photography. Its chemical inertness makes it useful in specialized technologies."
 },
 {
@@ -522,8 +454,6 @@ export const elements: Element[] = [
   mass: 85.468,
   electronConfiguration: "[Kr] 5s1",
   bohrShells: [2,8,18,8,1],
-    discoveredBy: "Gustav Kirchhoff",
-    discoveredYear: 1861,
   intro: "Rubidium is a highly reactive alkali metal used in research, atomic clocks, and specialized electronics. It reacts vigorously with water."
 },
 {
@@ -536,8 +466,6 @@ export const elements: Element[] = [
   mass: 87.62,
   electronConfiguration: "[Kr] 5s2",
   bohrShells: [2,8,18,8,2],
-    discoveredBy: "William Cruickshank",
-    discoveredYear: 1787,
   intro: "Strontium is used in fireworks to produce brilliant red colors. It also has applications in ceramics, magnets, and scientific research."
 },
 {
@@ -550,8 +478,6 @@ export const elements: Element[] = [
   mass: 88.906,
   electronConfiguration: "[Kr] 4d1 5s2",
   bohrShells: [2,8,18,9,2],
-    discoveredBy: "Friedrich Wöhler",
-    discoveredYear: 1787,
   intro: "Yttrium is used in LEDs, superconductors, lasers, and advanced materials. It often occurs alongside rare earth elements."
 },
 {
@@ -564,8 +490,6 @@ export const elements: Element[] = [
   mass: 91.224,
   electronConfiguration: "[Kr] 4d2 5s2",
   bohrShells: [2,8,18,10,2],
-    discoveredBy: "Jöns Jacob Berzelius",
-    discoveredYear: 1789,
   intro: "Zirconium is highly resistant to corrosion and heat. It is used in nuclear reactors, medical devices, and high-performance industrial equipment."
 },
 {
@@ -578,8 +502,6 @@ export const elements: Element[] = [
   mass: 92.906,
   electronConfiguration: "[Kr] 4d4 5s1",
   bohrShells: [2,8,18,12,1],
-    discoveredBy: "Charles Hatchett",
-    discoveredYear: 1801,
   intro: "Niobium is used in superconductors, pipelines, jet engines, and specialty steels. It improves strength while maintaining flexibility."
 },
 {
@@ -592,8 +514,6 @@ export const elements: Element[] = [
   mass: 95.95,
   electronConfiguration: "[Kr] 4d5 5s1",
   bohrShells: [2,8,18,13,1],
-    discoveredBy: "Carl Wilhelm Scheele",
-    discoveredYear: 1778,
   intro: "Molybdenum strengthens steel and allows it to withstand high temperatures. It is important in industrial machinery and aerospace applications."
 },
 {
@@ -606,8 +526,6 @@ export const elements: Element[] = [
   mass: 98,
   electronConfiguration: "[Kr] 4d5 5s2",
   bohrShells: [2,8,18,13,2],
-    discoveredBy: "Emilio G. Segrè",
-    discoveredYear: 1937,
   intro: "Technetium was the first artificially produced element. Radioactive isotopes of technetium are widely used in medical diagnostic imaging."
 },
 {
@@ -632,8 +550,6 @@ export const elements: Element[] = [
   mass: 102.905,
   electronConfiguration: "[Kr] 4d8 5s1",
   bohrShells: [2,8,18,16,1],
-    discoveredBy: "William Hyde Wollaston",
-    discoveredYear: 1803,
   intro: "Rhodium is a highly valuable precious metal used in catalytic converters, jewelry, and reflective coatings. It is extremely corrosion resistant."
 },
 {
@@ -646,8 +562,6 @@ export const elements: Element[] = [
   mass: 106.42,
   electronConfiguration: "[Kr] 4d10",
   bohrShells: [2,8,18,18],
-    discoveredBy: "William Hyde Wollaston",
-    discoveredYear: 1803,
   intro: "Palladium is a rare precious metal used in catalytic converters, electronics, and hydrogen storage. It has excellent catalytic properties and is highly resistant to corrosion."
 },
 {
@@ -660,8 +574,6 @@ export const elements: Element[] = [
   mass: 107.868,
   electronConfiguration: "[Kr] 4d10 5s1",
   bohrShells: [2,8,18,18,1],
-    discoveredBy: "Unknown",
-    discoveredYear: 0,
   intro: "Silver is the best electrical conductor of all elements. It is used in electronics, jewelry, photography, and antimicrobial applications."
 },
 {
@@ -674,8 +586,6 @@ export const elements: Element[] = [
   mass: 112.414,
   electronConfiguration: "[Kr] 4d10 5s2",
   bohrShells: [2,8,18,18,2],
-    discoveredBy: "Karl Samuel Leberecht Hermann",
-    discoveredYear: 1817,
   intro: "Cadmium is a toxic metal used in batteries, pigments, and coatings. It is known for its corrosion resistance and use in rechargeable systems."
 },
 {
@@ -688,8 +598,6 @@ export const elements: Element[] = [
   mass: 114.818,
   electronConfiguration: "[Kr] 4d10 5s2 5p1",
   bohrShells: [2,8,18,18,3],
-    discoveredBy: "Ferdinand Reich",
-    discoveredYear: 1863,
   intro: "Indium is a soft metal used in touchscreens, semiconductors, and LCD displays. It is rare and highly valuable in modern electronics."
 },
 {
@@ -702,8 +610,6 @@ export const elements: Element[] = [
   mass: 118.710,
   electronConfiguration: "[Kr] 4d10 5s2 5p2",
   bohrShells: [2,8,18,18,4],
-    discoveredBy: "Unknown",
-    discoveredYear: 0,
   intro: "Tin is a malleable metal used in solder, coatings, and alloys like bronze. It has been used since ancient times in metallurgy."
 },
 {
@@ -716,8 +622,6 @@ export const elements: Element[] = [
   mass: 121.760,
   electronConfiguration: "[Kr] 4d10 5s2 5p3",
   bohrShells: [2,8,18,18,5],
-    discoveredBy: "Unknown",
-    discoveredYear: 0,
   intro: "Antimony is a brittle metalloid used in flame retardants, alloys, and semiconductors. It has both metallic and non-metallic properties."
 },
 {
@@ -730,8 +634,6 @@ export const elements: Element[] = [
   mass: 127.60,
   electronConfiguration: "[Kr] 4d10 5s2 5p4",
   bohrShells: [2,8,18,18,6],
-    discoveredBy: "Franz-Joseph Müller von Reichenstein",
-    discoveredYear: 1783,
   intro: "Tellurium is a rare metalloid used in solar panels, semiconductors, and alloys. It improves machinability and electrical conductivity."
 },
 {
@@ -744,8 +646,6 @@ export const elements: Element[] = [
   mass: 126.904,
   electronConfiguration: "[Kr] 4d10 5s2 5p5",
   bohrShells: [2,8,18,18,7],
-    discoveredBy: "Bernard Courtois",
-    discoveredYear: 1811,
   intro: "Iodine is essential for thyroid health and metabolism. It is used in antiseptics, medical imaging, and chemical synthesis."
 },
 {
@@ -758,8 +658,6 @@ export const elements: Element[] = [
   mass: 131.293,
   electronConfiguration: "[Kr] 4d10 5s2 5p6",
   bohrShells: [2,8,18,18,8],
-    discoveredBy: "Morris Travers",
-    discoveredYear: 1898,
   intro: "Xenon is a noble gas used in high-intensity lamps, medical imaging, and ion propulsion systems. It is chemically inert."
 },
 {
@@ -772,8 +670,6 @@ export const elements: Element[] = [
   mass: 132.905,
   electronConfiguration: "[Xe] 6s1",
   bohrShells: [2,8,18,18,8,1],
-    discoveredBy: "Gustav Kirchhoff",
-    discoveredYear: 1860,
   intro: "Cesium is a highly reactive metal used in atomic clocks, drilling fluids, and research applications. It reacts explosively with water."
 },
 {
@@ -786,8 +682,6 @@ export const elements: Element[] = [
   mass: 137.327,
   electronConfiguration: "[Xe] 6s2",
   bohrShells: [2,8,18,18,8,2],
-    discoveredBy: "Humphry Davy",
-    discoveredYear: 1808,
   intro: "Barium is used in medical imaging, fireworks, and drilling fluids. Some compounds are toxic while others are medically useful."
 },
 {
@@ -800,8 +694,6 @@ export const elements: Element[] = [
   mass: 138.905,
   electronConfiguration: "[Xe] 5d1 6s2",
   bohrShells: [2,8,18,18,9,2],
-    discoveredBy: "Carl Gustaf Mosander",
-    discoveredYear: 1839,
   intro: "Lanthanum is used in camera lenses, batteries, and catalysts. It is the first element of the lanthanide series."
 },
 {
@@ -814,8 +706,6 @@ export const elements: Element[] = [
   mass: 140.116,
   electronConfiguration: "[Xe] 4f1 5d1 6s2",
   bohrShells: [2,8,18,19,9,2],
-    discoveredBy: "Jöns Jacob Berzelius",
-    discoveredYear: 1804,
   intro: "Cerium is used in catalytic converters, glass polishing, and alloys. It is one of the most abundant rare earth elements."
 },
 {
@@ -828,8 +718,6 @@ export const elements: Element[] = [
   mass: 140.908,
   electronConfiguration: "[Xe] 4f3 6s2",
   bohrShells: [2,8,18,21,8,2],
-    discoveredBy: "Carl Gustaf Mosander",
-    discoveredYear: 1841,
   intro: "Praseodymium is used in strong magnets, aircraft engines, and glasses that filter light. It is part of the rare earth group."
 },
 {
@@ -842,8 +730,6 @@ export const elements: Element[] = [
   mass: 144.242,
   electronConfiguration: "[Xe] 4f4 6s2",
   bohrShells: [2,8,18,22,8,2],
-    discoveredBy: "Carl Auer von Welsbach",
-    discoveredYear: 1885,
   intro: "Neodymium is used in powerful magnets found in headphones, wind turbines, and electric motors. It is essential in modern technology."
 },
 {
@@ -856,8 +742,6 @@ export const elements: Element[] = [
   mass: 145,
   electronConfiguration: "[Xe] 4f5 6s2",
   bohrShells: [2,8,18,23,8,2],
-    discoveredBy: "Charles D. Coryell",
-    discoveredYear: 1945,
   intro: "Promethium is a radioactive rare earth element used in luminous paints and research. It does not occur naturally in significant amounts."
 },
 {
@@ -870,8 +754,6 @@ export const elements: Element[] = [
   mass: 150.36,
   electronConfiguration: "[Xe] 4f6 6s2",
   bohrShells: [2,8,18,24,8,2],
-    discoveredBy: "Paul-Émile Lecoq de Boisbaudran",
-    discoveredYear: 1879,
   intro: "Samarium is used in magnets, nuclear reactors, and cancer treatment. It is part of the lanthanide series of rare earth metals."
 },
 {
@@ -884,8 +766,6 @@ export const elements: Element[] = [
   mass: 151.964,
   electronConfiguration: "[Xe] 4f7 6s2",
   bohrShells: [2,8,18,25,8,2],
-    discoveredBy: "Eugène-Anatole Demarçay",
-    discoveredYear: 1901,
   intro: "Europium is used in TV screens, LEDs, and fluorescent lighting. It produces bright red and blue phosphorescent colors."
 },
 {
@@ -898,8 +778,6 @@ export const elements: Element[] = [
   mass: 157.25,
   electronConfiguration: "[Xe] 4f7 5d1 6s2",
   bohrShells: [2,8,18,25,9,2],
-    discoveredBy: "Jean Charles Galissard de Marignac",
-    discoveredYear: 1880,
   intro: "Gadolinium is used in MRI contrast agents and nuclear reactors. It has strong magnetic properties and high neutron absorption."
 },
 {
@@ -912,8 +790,6 @@ export const elements: Element[] = [
   mass: 158.925,
   electronConfiguration: "[Xe] 4f9 6s2",
   bohrShells: [2,8,18,27,8,2],
-    discoveredBy: "Carl Gustaf Mosander",
-    discoveredYear: 1843,
   intro: "Terbium is used in green phosphors, electronics, and solid-state devices. It is a rare earth element with fluorescent properties."
 },
 {
@@ -926,8 +802,6 @@ export const elements: Element[] = [
   mass: 162.5,
   electronConfiguration: "[Xe] 4f10 6s2",
   bohrShells: [2,8,18,28,8,2],
-    discoveredBy: "Paul-Émile Lecoq de Boisbaudran",
-    discoveredYear: 1886,
   intro: "Dysprosium is used in magnets and nuclear reactors. It helps improve heat resistance in high-performance materials."
 },
 {
@@ -940,8 +814,6 @@ export const elements: Element[] = [
   mass: 164.930,
   electronConfiguration: "[Xe] 4f11 6s2",
   bohrShells: [2,8,18,29,8,2],
-    discoveredBy: "Jacques-Louis Soret",
-    discoveredYear: 1878,
   intro: "Holmium has strong magnetic properties and is used in scientific research and lasers. It is part of the rare earth family."
 },
 {
@@ -966,8 +838,6 @@ export const elements: Element[] = [
   mass: 168.934,
   electronConfiguration: "[Xe] 4f13 6s2",
   bohrShells: [2,8,18,31,8,2],
-    discoveredBy: "Per Teodor Cleve",
-    discoveredYear: 1879,
   intro: "Thulium is one of the rarest lanthanides. It is used in portable X-ray devices and specialized lasers."
 },
 {
@@ -980,8 +850,6 @@ export const elements: Element[] = [
   mass: 173.045,
   electronConfiguration: "[Xe] 4f14 6s2",
   bohrShells: [2,8,18,32,8,2],
-    discoveredBy: "Jean Charles Galissard de Marignac",
-    discoveredYear: 1878,
   intro: "Ytterbium is used in atomic clocks, lasers, and stress gauges. It has applications in precision measurement systems."
 },
 {
@@ -1006,8 +874,6 @@ export const elements: Element[] = [
   mass: 178.49,
   electronConfiguration: "[Xe] 4f14 5d2 6s2",
   bohrShells: [2,8,18,32,10,2],
-    discoveredBy: "George de Hevesy",
-    discoveredYear: 1922,
   intro: "Hafnium is used in nuclear reactors and high-temperature alloys. It is chemically similar to zirconium."
 },
 {
@@ -1020,8 +886,6 @@ export const elements: Element[] = [
   mass: 180.948,
   electronConfiguration: "[Xe] 4f14 5d3 6s2",
   bohrShells: [2,8,18,32,11,2],
-    discoveredBy: "Anders Gustaf Ekeberg",
-    discoveredYear: 1802,
   intro: "Tantalum is highly corrosion resistant and used in electronics and surgical instruments. It is durable and stable."
 },
 {
@@ -1034,8 +898,6 @@ export const elements: Element[] = [
   mass: 183.84,
   electronConfiguration: "[Xe] 4f14 5d4 6s2",
   bohrShells: [2,8,18,32,12,2],
-    discoveredBy: "Fausto Elhuyar",
-    discoveredYear: 1783,
   intro: "Tungsten has the highest melting point of all metals. It is used in light bulb filaments and cutting tools."
 },
 {
@@ -1048,8 +910,6 @@ export const elements: Element[] = [
   mass: 186.207,
   electronConfiguration: "[Xe] 4f14 5d5 6s2",
   bohrShells: [2,8,18,32,13,2],
-    discoveredBy: "Walter Noddack",
-    discoveredYear: 1925,
   intro: "Rhenium is used in jet engines and high-temperature superalloys. It is one of the rarest elements in Earth's crust."
 },
 {
@@ -1062,8 +922,6 @@ export const elements: Element[] = [
   mass: 190.23,
   electronConfiguration: "[Xe] 4f14 5d6 6s2",
   bohrShells: [2,8,18,32,14,2],
-    discoveredBy: "William Hyde Wollaston",
-    discoveredYear: 1804,
   intro: "Osmium is one of the densest elements. It is used in fountain pen tips, electrical contacts, and alloys."
 },
 {
@@ -1076,8 +934,6 @@ export const elements: Element[] = [
   mass: 192.22,
   electronConfiguration: "[Xe] 4f14 5d7 6s2",
   bohrShells: [2,8,18,32,15,2],
-    discoveredBy: "Smithson Tennant",
-    discoveredYear: 1803,
   intro: "Iridium is highly corrosion resistant and used in spark plugs, electrodes, and space technology."
 },
 {
@@ -1090,8 +946,6 @@ export const elements: Element[] = [
   mass: 195.08,
   electronConfiguration: "[Xe] 4f14 5d9 6s1",
   bohrShells: [2,8,18,32,17,1],
-    discoveredBy: "Julius Caesar Scaliger",
-    discoveredYear: 1557,
   intro: "Platinum is a precious metal used in catalytic converters, jewelry, and medical equipment. It is highly stable."
 },
 {
@@ -1128,8 +982,6 @@ export const elements: Element[] = [
   mass: 204.38,
   electronConfiguration: "[Xe] 4f14 5d10 6s2 6p1",
   bohrShells: [2,8,18,32,18,3],
-    discoveredBy: "William Crookes",
-    discoveredYear: 1861,
   intro: "Thallium is a toxic metal used in electronics and optics. It must be handled carefully due to its toxicity."
 },
 {
@@ -1142,8 +994,6 @@ export const elements: Element[] = [
   mass: 207.2,
   electronConfiguration: "[Xe] 4f14 5d10 6s2 6p2",
   bohrShells: [2,8,18,32,18,4],
-    discoveredBy: "Unknown",
-    discoveredYear: 0,
   intro: "Lead is a heavy metal used in batteries, radiation shielding, and construction. It is toxic but historically important."
 },
 {
@@ -1156,8 +1006,6 @@ export const elements: Element[] = [
   mass: 208.98,
   electronConfiguration: "[Xe] 4f14 5d10 6s2 6p3",
   bohrShells: [2,8,18,32,18,5],
-    discoveredBy: "Unknown",
-    discoveredYear: 0,
   intro: "Bismuth is a low-toxicity heavy metal used in pharmaceuticals and cosmetics. It has a unique crystalline structure."
 },
 {
@@ -1170,8 +1018,6 @@ export const elements: Element[] = [
   mass: 209,
   electronConfiguration: "[Xe] 4f14 5d10 6s2 6p4",
   bohrShells: [2,8,18,32,18,6],
-    discoveredBy: "Marie Sklodowska-Curie",
-    discoveredYear: 1898,
   intro: "Polonium is a highly radioactive element discovered by Marie Curie. It is extremely rare and dangerous."
 },
 {
@@ -1184,8 +1030,6 @@ export const elements: Element[] = [
   mass: 210,
   electronConfiguration: "[Xe] 4f14 5d10 6s2 6p5",
   bohrShells: [2,8,18,32,18,7],
-    discoveredBy: "Emilio G. Segrè",
-    discoveredYear: 1940,
   intro: "Astatine is the rarest naturally occurring halogen. It is highly radioactive and exists in trace amounts."
 },
 {
@@ -1198,8 +1042,6 @@ export const elements: Element[] = [
   mass: 222,
   electronConfiguration: "[Xe] 4f14 5d10 6s2 6p6",
   bohrShells: [2,8,18,32,18,8],
-    discoveredBy: "Ernest Rutherford",
-    discoveredYear: 1899,
   intro: "Radon is a radioactive noble gas that can accumulate in buildings. It is a health hazard when inhaled."
 },
 {
@@ -1212,8 +1054,6 @@ export const elements: Element[] = [
   mass: 223,
   electronConfiguration: "[Rn] 7s1",
   bohrShells: [2,8,18,32,18,8,1],
-    discoveredBy: "Marguerite Perey",
-    discoveredYear: 1939,
   intro: "Francium is one of the rarest and most radioactive elements. It has no stable isotopes and is extremely unstable."
 },
 {
@@ -1238,8 +1078,6 @@ export const elements: Element[] = [
   mass: 227,
   electronConfiguration: "[Rn] 6d1 7s2",
   bohrShells: [2,8,18,32,18,9,2],
-    discoveredBy: "André-Louis Debierne",
-    discoveredYear: 1899,
   intro: "Actinium is the first element in the actinide series. It is highly radioactive and used in research."
 },
 {
@@ -1252,8 +1090,6 @@ export const elements: Element[] = [
   mass: 232.038,
   electronConfiguration: "[Rn] 6d2 7s2",
   bohrShells: [2,8,18,32,18,10,2],
-    discoveredBy: "Jöns Jacob Berzelius",
-    discoveredYear: 1828,
   intro: "Thorium is a radioactive metal considered for nuclear fuel. It is more abundant than uranium."
 },
 {
@@ -1266,8 +1102,6 @@ export const elements: Element[] = [
   mass: 231.036,
   electronConfiguration: "[Rn] 5f2 6d1 7s2",
   bohrShells: [2,8,18,32,20,9,2],
-    discoveredBy: "Lise Meitner",
-    discoveredYear: 1917,
   intro: "Protactinium is rare and highly radioactive. It is mainly used in scientific research."
 },
 {
@@ -1280,8 +1114,6 @@ export const elements: Element[] = [
   mass: 238.029,
   electronConfiguration: "[Rn] 5f3 6d1 7s2",
   bohrShells: [2,8,18,32,21,9,2],
-    discoveredBy: "Q903801",
-    discoveredYear: 1789,
   intro: "Uranium is a key nuclear fuel used in reactors and weapons. It is the heaviest naturally occurring element."
 },
 {
@@ -1294,8 +1126,6 @@ export const elements: Element[] = [
   mass: 237,
   electronConfiguration: "[Rn] 5f4 6d1 7s2",
   bohrShells: [2,8,18,32,22,9,2],
-    discoveredBy: "Edwin McMillan",
-    discoveredYear: 1940,
   intro: "Neptunium is the first transuranic element. It is produced in nuclear reactors."
 },
 {
@@ -1308,8 +1138,6 @@ export const elements: Element[] = [
   mass: 244,
   electronConfiguration: "[Rn] 5f6 7s2",
   bohrShells: [2,8,18,32,24,8,2],
-    discoveredBy: "Edwin McMillan",
-    discoveredYear: 1941,
   intro: "Plutonium is used in nuclear weapons and reactors. It is highly radioactive and dangerous."
 },
 {
@@ -1334,8 +1162,6 @@ export const elements: Element[] = [
   mass: 247,
   electronConfiguration: "[Rn] 5f7 6d1 7s2",
   bohrShells: [2,8,18,32,25,9,2],
-    discoveredBy: "Glenn Theodore Seaborg",
-    discoveredYear: 1944,
   intro: "Curium is a radioactive element used in research. It was named after Marie and Pierre Curie."
 },
 {
@@ -1348,8 +1174,6 @@ export const elements: Element[] = [
   mass: 247,
   electronConfiguration: "[Rn] 5f9 7s2",
   bohrShells: [2,8,18,32,27,8,2],
-    discoveredBy: "Glenn Theodore Seaborg",
-    discoveredYear: 1949,
   intro: "Berkelium is a synthetic radioactive element used in scientific research. It is highly unstable."
 },
 {
@@ -1362,8 +1186,6 @@ export const elements: Element[] = [
   mass: 251,
   electronConfiguration: "[Rn] 5f10 7s2",
   bohrShells: [2,8,18,32,28,8,2],
-    discoveredBy: "Glenn Theodore Seaborg",
-    discoveredYear: 1950,
   intro: "Californium is a radioactive element used in neutron sources and nuclear reactors."
 },
 {
@@ -1376,8 +1198,6 @@ export const elements: Element[] = [
   mass: 252,
   electronConfiguration: "[Rn] 5f11 7s2",
   bohrShells: [2,8,18,32,29,8,2],
-    discoveredBy: "Glenn Theodore Seaborg",
-    discoveredYear: 1952,
   intro: "Einsteinium is a synthetic element named after Albert Einstein. It is used in scientific research."
 },
 {
@@ -1390,8 +1210,6 @@ export const elements: Element[] = [
   mass: 257,
   electronConfiguration: "[Rn] 5f12 7s2",
   bohrShells: [2,8,18,32,30,8,2],
-    discoveredBy: "Glenn Theodore Seaborg",
-    discoveredYear: 1952,
   intro: "Fermium is a radioactive actinide used only in research. It is produced in nuclear reactors."
 },
 {
@@ -1404,8 +1222,6 @@ export const elements: Element[] = [
   mass: 258,
   electronConfiguration: "[Rn] 5f13 7s2",
   bohrShells: [2,8,18,32,31,8,2],
-    discoveredBy: "Glenn Theodore Seaborg",
-    discoveredYear: 1955,
   intro: "Mendelevium is a synthetic element named after Dmitri Mendeleev. It is highly radioactive."
 },
 {
@@ -1418,8 +1234,6 @@ export const elements: Element[] = [
   mass: 259,
   electronConfiguration: "[Rn] 5f14 7s2",
   bohrShells: [2,8,18,32,32,8,2],
-    discoveredBy: "Glenn Theodore Seaborg",
-    discoveredYear: 1958,
   intro: "Nobelium is a synthetic radioactive element named after Alfred Nobel. It is used in research."
 },
 {
@@ -1432,8 +1246,6 @@ export const elements: Element[] = [
   mass: 262,
   electronConfiguration: "[Rn] 5f14 7s2 7p1",
   bohrShells: [2,8,18,32,32,9,2],
-    discoveredBy: "Albert Ghiorso",
-    discoveredYear: 1961,
   intro: "Lawrencium is a synthetic element named after Ernest Lawrence. It is highly radioactive and unstable."
 },
 {
@@ -1446,8 +1258,6 @@ export const elements: Element[] = [
   mass: 267,
   electronConfiguration: "[Rn] 5f14 6d2 7s2",
   bohrShells: [2,8,18,32,32,10,2],
-    discoveredBy: "Albert Ghiorso",
-    discoveredYear: 1964,
   intro: "Rutherfordium is a synthetic transition metal named after Ernest Rutherford. It is radioactive."
 },
 {
@@ -1460,8 +1270,6 @@ export const elements: Element[] = [
   mass: 270,
   electronConfiguration: "[Rn] 5f14 6d3 7s2",
   bohrShells: [2,8,18,32,32,11,2],
-    discoveredBy: "Joint Institute for Nuclear Research",
-    discoveredYear: 1970,
   intro: "Dubnium is a synthetic element named after Dubna, Russia. It is highly radioactive."
 },
 {
@@ -1474,8 +1282,6 @@ export const elements: Element[] = [
   mass: 271,
   electronConfiguration: "[Rn] 5f14 6d4 7s2",
   bohrShells: [2,8,18,32,32,12,2],
-    discoveredBy: "Yuri Oganessian",
-    discoveredYear: 1974,
   intro: "Seaborgium is a synthetic element named after Glenn Seaborg. It is highly radioactive and used in research."
 },
 {
@@ -1488,8 +1294,6 @@ export const elements: Element[] = [
   mass: 270,
   electronConfiguration: "[Rn] 5f14 6d5 7s2",
   bohrShells: [2,8,18,32,32,13,2],
-    discoveredBy: "Yuri Oganessian",
-    discoveredYear: 1976,
   intro: "Bohrium is a synthetic element named after Niels Bohr. It is extremely radioactive."
 },
 {
@@ -1502,8 +1306,6 @@ export const elements: Element[] = [
   mass: 277,
   electronConfiguration: "[Rn] 5f14 6d6 7s2",
   bohrShells: [2,8,18,32,32,14,2],
-    discoveredBy: "GSI Helmholtz Centre for Heavy Ion Research",
-    discoveredYear: 1984,
   intro: "Hassium is a synthetic element named after the German state of Hesse. It is highly unstable."
 },
 {
@@ -1516,8 +1318,6 @@ export const elements: Element[] = [
   mass: 278,
   electronConfiguration: "[Rn] 5f14 6d7 7s2",
   bohrShells: [2,8,18,32,32,15,2],
-    discoveredBy: "GSI Helmholtz Centre for Heavy Ion Research",
-    discoveredYear: 1982,
   intro: "Meitnerium is a synthetic element named after Lise Meitner. It is extremely radioactive and unstable."
 },
 {
@@ -1530,8 +1330,6 @@ export const elements: Element[] = [
   mass: 281,
   electronConfiguration: "[Rn] 5f14 6d9 7s1",
   bohrShells: [2,8,18,32,32,17,1],
-    discoveredBy: "GSI Helmholtz Centre for Heavy Ion Research",
-    discoveredYear: 1994,
   intro: "Darmstadtium is a synthetic element named after Darmstadt, Germany. It is highly unstable."
 },
 {
@@ -1544,8 +1342,6 @@ export const elements: Element[] = [
   mass: 282,
   electronConfiguration: "[Rn] 5f14 6d10 7s1",
   bohrShells: [2,8,18,32,32,18,1],
-    discoveredBy: "GSI Helmholtz Centre for Heavy Ion Research",
-    discoveredYear: 1994,
   intro: "Roentgenium is a synthetic element named after Wilhelm Roentgen. It is highly radioactive."
 },
 {
@@ -1558,8 +1354,6 @@ export const elements: Element[] = [
   mass: 285,
   electronConfiguration: "[Rn] 5f14 6d10 7s2",
   bohrShells: [2,8,18,32,32,18,2],
-    discoveredBy: "GSI Helmholtz Centre for Heavy Ion Research",
-    discoveredYear: 1996,
   intro: "Copernicium is a synthetic element named after Nicolaus Copernicus. It is extremely radioactive."
 },
 {
@@ -1572,8 +1366,6 @@ export const elements: Element[] = [
   mass: 286,
   electronConfiguration: "[Rn] 5f14 6d10 7s2 7p1",
   bohrShells: [2,8,18,32,32,18,3],
-    discoveredBy: "Joint Institute for Nuclear Research",
-    discoveredYear: 2006,
   intro: "Nihonium is a synthetic element named after Japan. It is highly radioactive."
 },
 {
@@ -1586,8 +1378,6 @@ export const elements: Element[] = [
   mass: 289,
   electronConfiguration: "[Rn] 5f14 6d10 7s2 7p2",
   bohrShells: [2,8,18,32,32,18,4],
-    discoveredBy: "Joint Institute for Nuclear Research",
-    discoveredYear: 1999,
   intro: "Flerovium is a synthetic element named after the Flerov Laboratory in Russia. It is highly radioactive."
 },
 {
@@ -1600,8 +1390,6 @@ export const elements: Element[] = [
   mass: 288,
   electronConfiguration: "[Rn] 5f14 6d10 7s2 7p3",
   bohrShells: [2,8,18,32,32,18,5],
-    discoveredBy: "Joint Institute for Nuclear Research",
-    discoveredYear: 2003,
   intro: "Moscovium is a synthetic element named after Moscow. It is highly radioactive and unstable."
 },
 {
@@ -1614,8 +1402,6 @@ export const elements: Element[] = [
   mass: 293,
   electronConfiguration: "[Rn] 5f14 6d10 7s2 7p4",
   bohrShells: [2,8,18,32,32,18,6],
-    discoveredBy: "Joint Institute for Nuclear Research",
-    discoveredYear: 2000,
   intro: "Livermorium is a synthetic element named after Lawrence Livermore National Lab. It is highly radioactive."
 },
 {
@@ -1628,8 +1414,6 @@ export const elements: Element[] = [
   mass: 294,
   electronConfiguration: "[Rn] 5f14 6d10 7s2 7p5",
   bohrShells: [2,8,18,32,32,18,7],
-    discoveredBy: "Yuri Oganessian",
-    discoveredYear: 2009,
   intro: "Tennessine is a synthetic halogen named after Tennessee. It is extremely radioactive."
 },
 {
@@ -1642,58 +1426,5 @@ export const elements: Element[] = [
   mass: 294,
   electronConfiguration: "[Rn] 5f14 6d10 7s2 7p6",
   bohrShells: [2,8,18,32,32,18,8],
-    discoveredBy: "Joint Institute for Nuclear Research",
-    discoveredYear: 2002,
   intro: "Oganesson is a synthetic noble gas named after Yuri Oganessian. It is highly unstable."
 }];
-# WARNING: element 2 not patched
-# WARNING: element 4 not patched
-# WARNING: element 5 not patched
-# WARNING: element 6 not patched
-# WARNING: element 9 not patched
-# WARNING: element 10 not patched
-# WARNING: element 16 not patched
-# WARNING: element 18 not patched
-# WARNING: element 22 not patched
-# WARNING: element 26 not patched
-# WARNING: element 28 not patched
-# WARNING: element 29 not patched
-# WARNING: element 30 not patched
-# WARNING: element 31 not patched
-# WARNING: element 35 not patched
-# WARNING: element 36 not patched
-# WARNING: element 37 not patched
-# WARNING: element 39 not patched
-# WARNING: element 40 not patched
-# WARNING: element 43 not patched
-# WARNING: element 47 not patched
-# WARNING: element 48 not patched
-# WARNING: element 50 not patched
-# WARNING: element 51 not patched
-# WARNING: element 54 not patched
-# WARNING: element 71 not patched
-# WARNING: element 79 not patched
-# WARNING: element 80 not patched
-# WARNING: element 82 not patched
-# WARNING: element 83 not patched
-# WARNING: element 84 not patched
-# WARNING: element 85 not patched
-# WARNING: element 88 not patched
-# WARNING: element 92 not patched
-# WARNING: element 95 not patched
-# WARNING: element 96 not patched
-# WARNING: element 97 not patched
-# WARNING: element 98 not patched
-# WARNING: element 99 not patched
-# WARNING: element 100 not patched
-# WARNING: element 101 not patched
-# WARNING: element 102 not patched
-# WARNING: element 105 not patched
-# WARNING: element 108 not patched
-# WARNING: element 109 not patched
-# WARNING: element 110 not patched
-# WARNING: element 111 not patched
-# WARNING: element 112 not patched
-# WARNING: element 113 not patched
-# WARNING: element 117 not patched
-# WARNING: element 118 not patched
