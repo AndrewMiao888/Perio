@@ -99,7 +99,12 @@
             @input="onSearchInput"
           />
 
-          <div id="suggestions"></div>
+          <div id="suggestions">
+            <div class="emptyState" id="emptyStateSearch" style="display:none;">
+              <p>🔍 No results found</p>
+              <small>Try searching by name, symbol, or category</small>
+            </div>
+          </div>
 
         </div>
 

@@ -9,7 +9,4 @@ export default defineNuxtConfig({
     }
   }
 })
-function defineNuxtConfig(arg0: { compatibilityDate: string; ssr: boolean; modules: never[]; css: never[]; vite: { server: { middlewareMode: boolean; }; }; }) {
-    throw new Error("Function not implemented.");
-}
 
